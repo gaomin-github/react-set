@@ -1,0 +1,31 @@
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry",
+          "targets": {
+            "browsers": [
+              "chrome >= 55",
+              "firefox >= 57",
+              "safari >= 10",
+              "edge >= 16",
+              "ie 11",
+              "android >= 4.0"
+            ]
+          },
+          "corejs": 2
+        }
+      ],
+      "@babel/preset-react"
+    ],
+    "env": {
+      "development": {
+        "plugins": ["lodash"]
+      },
+      "production": {
+        "plugins": ["lodash", "transform-react-remove-prop-types"]
+      }
+    }
+  }
+  
