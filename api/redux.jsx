@@ -78,7 +78,7 @@ const store=createStore({
     state,
     enhancers:[],
     extensions:[]
-},...reducers)
+},reducerMap,sagas)
 
 
 // slice创建store法(局部action和reducer提取出来，模块化)

@@ -70,14 +70,24 @@ const getCommonExtensions=()=>{
 6.window.___INITIAL_STATE__由谁来初始化？参考：src/application/pc/services/redux/store.ts
 
 
-// 7.请求发出：两种方式
+// 7.// 三种发起请求方式：
 // src/wiki/components/wiki-route-entry/connector.ts
 // state和actions，以connect方式注入wikiSuiteEntry
-// 真实的请求发出操作：src/business/wiki/api/index.ts
-// 1）组件从service/api中引入请求函数
-// 2）组件中触发action,saga监听action，处理函数中执行service/api的方法
 // 参考：WikiDetailV2->getWikiInfo
 // syncPageTreeSagaV2组件
+
+
+// 真实的请求发出操作：src/business/wiki/api/index.ts
+// 1）组件从wiki/api中引入请求函数
+// 2）组件中触发action,saga监听action，处理函数中执行wiki/api的方法
+
+// 3）action中，做模版化。request中，初始化saga，监听action，做统一请求处理
+// saga监听所有action：src/common/redux/sagas/request/request.ts
+// saga收集action/action中和请求有关内容：src/business/wiki/redux/sagas/pageTree/fetch.ts
+// 请求统一处理：src/common/redux/sagas/request/retryable.ts
+  // 流程：WikiDetailV2->initPageTreeV2-
+
+
 
 
 // action触发时，在saga中发出请求
@@ -92,3 +102,12 @@ const getCommonExtensions=()=>{
 
 11.tree数据从哪里加载？
 
+12.reducer和saga执行顺序控制？
+saga监听发起的action，做处理
+reducer，接收action对应的state的更新
+
+// 13.项目中dispatch如何触发？
+// redux触发action的不同方式：https://blog.csdn.net/u011077672/article/details/82684019
+
+// 14.项目接口proxy设置位置：
+// config/webpack_dev_server.config.js

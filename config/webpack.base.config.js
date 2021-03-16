@@ -12,11 +12,18 @@ function getBaseWebpackConfig(){
         entry:{
             main:['./src/index.js']
         },
+        alias:{
+            $redux:'../src/redux',
+            $service:'../src/service'
+        },
+        resolve:{
+            extensions:['.js','.jsx']
+        },
         // entry:['src/index.js'],
         module:{
             rules:[
                 {
-                    test:/\.js?$/,
+                    test:/\.(js|jsx)?$/,
                     exclude:/node_modules/,
                     use:getBabelLoader()
                 }

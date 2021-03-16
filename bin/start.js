@@ -1,4 +1,6 @@
 
+const path=require('path');
+
 const webpack=require('webpack');
 const merge=require('webpack-merge');
 const WebpackDevServer=require('webpack-dev-server');
@@ -22,9 +24,12 @@ function createCompiler(config){
 }
 
 const devServerConfig={
+    historyApiFallback:true,
     compress:true,
     clientLogLevel:'none',
     hot:true,
+    contentBase: path.resolve(__dirname, "../"),
+
 
 }
 const devServer=new WebpackDevServer(compiler,devServerConfig);

@@ -26,6 +26,11 @@ spawn(fun,...args)//类似fork，
 // spawn衍生的spawn，不会阻塞主线程
 // 参考：https://www.stacknoob.com/s/UUPm4G836VW9oVyGVTV4C2
 
+
+
+
+
+
 //1. saga初始化用法？
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -43,6 +48,13 @@ const store = createStore(rootReducer, /* preloadedState, */ enhancer);
 
 // 启动 saga
 sagaMiddleWare.run(rootSaga);
+
+
+
+
+
+
+
 
 // 2.使用场景
 

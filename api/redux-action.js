@@ -1,5 +1,13 @@
 // 1.handleAction(type, reducer, defaultState)
+handleAction({
+    [action1]:(state,action)=>{
+        reducerFun1()
+    },
+    [action2]:()=>{
+        reducerFun2()
+    }
+})
 
+// 如何初始化？
 
-
-// 请求发出？
+// 如何调用触发？

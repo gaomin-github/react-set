@@ -10,7 +10,6 @@ useSelector(selectCount)//==state.val
 userSelector(state=>state.val)
 
 // 2.useDispatch：更新reduxt store state中的值
-
 const dispatch=userDispatch();
 dispatch(reducer1(1))
 
@@ -44,3 +43,6 @@ const store;
 <Provider store={store}>
     <newComponent/>
 </Provider>
+
+// 使用demo
+
