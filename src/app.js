@@ -5,7 +5,7 @@ class App extends Component{
         super(props)
     }
     componentDidMount(){
-        console.log('app mounted')
+        // console.log('app mounted')
     }
     render(){
         return (<div>
