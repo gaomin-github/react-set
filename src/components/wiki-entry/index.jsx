@@ -4,10 +4,14 @@ import {fetchPageTree,testAction2,testAction3} from '$redux/actions/pageTree'
 
 
 
-const mapStateToProps=(state)=>{
-    const selectPageTreeState=(state)=>state.wiki&&state.wiki.pageTree
-    return {selectPageTreeState}
-}
+// const mapStateToProps=(state)=>({
+//     // wikiDescription:state.wikiDescription
+//     // const wikiDescription=(state)=>state.wikiDescription
+//     // return {wikiDescription(state)}
+//     state
+// })
+
+const mapStateToProps=(state)=>state.a&&state.a.mySpaceTest1
 const mapDispatchToProps={
     // fetchPageTree
     testAction2,

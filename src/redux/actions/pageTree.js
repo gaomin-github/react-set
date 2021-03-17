@@ -22,6 +22,7 @@ export const testAction2=createAction('testAction2');
 //     }
 // }
 
-export const testAction3=()=>({
+export const testAction3=(params)=>({
     type:'testAction3',
+    payload:params
 })

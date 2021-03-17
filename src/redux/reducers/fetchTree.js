@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import {handleActions,handleAction} from 'redux-actions';
 
 export const fetchTreeReducer=handleActions(
@@ -32,9 +33,31 @@ export const testReducer2=handleAction(
 
 export const testReducer3=handleAction(
     'testAction3',
-    (state,action)=>{
-        console.log('testAction3 touched')
-        return {}
+    (state,{payload})=>{
+        // console.log('testAction3 touched','state',state)
+        console.log('testAction3 touched','action')
+        // console.log(action)
+        let res={
+            wikiDescription:payload.wikiDescription
+        }
+        console.log('res',res)
+        return res;
     },
-    null
+    {}
 )
+
+export const reducerModel1=()=>{
+    return {
+        id:"test3",
+        reducerMap:{
+            // test3:testReducer3
+        }
+    }
+}
+
+export const defaultReducer=combineReducers({
+    'testReducer2':testReducer2,
+    'mySpaceTest1':testReducer3
+})
+
+// export const defaultReducer=combineReducers({testReducer2,testReducer3})
