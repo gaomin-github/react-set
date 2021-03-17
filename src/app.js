@@ -12,9 +12,9 @@ class App extends Component{
         return(
             <div className="app-wrapper">
                 this is app wrapper
-            {/* <Provider store={this.props.store}> */}
+            <Provider store={this.props.store}>
                 <RouteMain/>
-            {/* </Provider> */}
+            </Provider>
             </div>
         )
     }

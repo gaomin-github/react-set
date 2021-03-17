@@ -1,6 +1,7 @@
 import axiosInstance from '$service/index'
 function* requestWatcher(){
     const anyAction=yield take('*');
+    console.log('anyAction touched',4)
     if(!_isRequestAction(anyAction)){
         return;
     }

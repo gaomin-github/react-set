@@ -4,7 +4,7 @@ import App from './app.js'
 import store from '$redux/store'
 
 const MOUNT_NODE=document.getElementById('mainBox');
-console.log('MOUNt_NODE',MOUNT_NODE,6)
+// console.log('MOUNt_NODE',MOUNT_NODE,6)
 ReactDOM.render(<App store={store}/>,MOUNT_NODE)
 
 

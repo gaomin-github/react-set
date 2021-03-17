@@ -1,14 +1,18 @@
 import {connect} from 'react-redux';
 import wikiEntry from './wikiEntry';
-import {fetchPageTree} from '$redux/actions/pageTree'
+import {fetchPageTree,testAction2} from '$redux/actions/pageTree'
 
-const selectPageTree=(state)=>state.wiki&&state.wiki.pageTree
+
+
 const mapStateToProps=(state)=>{
-    selectPageTree(state)
+    const selectPageTreeState=(state)=>state.wiki&&state.wiki.pageTree
+    return {selectPageTreeState}
 }
-
 const mapDispatchToProps={
-    fetchPageTree
+    // fetchPageTree
+    testAction2
 }
-
-export default connect(mapStateToProps,mapDispatchToProps)(wikiEntry)
+// console.log('wiki-entry index.jsx executed')
+const Connector=connect(mapStateToProps,mapDispatchToProps)(wikiEntry)
+// console.log(Connector,14)
+export default Connector;

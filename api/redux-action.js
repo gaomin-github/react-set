@@ -1,6 +1,6 @@
 // 1.handleAction(type, reducer, defaultState)
 handleAction({
-    [action1]:(state,action)=>{
+    [action1]:(state,params)=>{
         reducerFun1()
     },
     [action2]:()=>{

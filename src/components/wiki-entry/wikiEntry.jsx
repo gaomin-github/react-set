@@ -6,19 +6,23 @@ export default class WikiEntry extends React.Component{
     }
 
     componentDidMount(){
+        // console.log('wikiEntry',9)
         this.init()
     }
 
     init(){
-        const {fetchPageTree}=this.props;
-        fetchPageTree();
+        // const {fetchPageTree}=this.props;
+        // console.log('fetchPageTree',fetchPageTree,15)
+        // fetchPageTree({spaceId:'space1',wikiToken:'wiki_token_1'});
+        const {testAction2}=this.props
+        testAction2()
     }
 
     render(){
         return(
             <div className="wiki-entry-wrapper">
                 {/* <pageTree/> */}
-                thsi is wiki entry-wrapper
+                this is wiki entry-wrapper
             </div>
         )
     }

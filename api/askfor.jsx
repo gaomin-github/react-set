@@ -111,3 +111,10 @@ reducer，接收action对应的state的更新
 
 // 14.项目接口proxy设置位置：
 // config/webpack_dev_server.config.js
+
+// 15.store注入过程？
+// src/application/pc/services/redux/store 中初始化store
+
+// 初始化时，引用：business/common/services/store
+
+// 进入wiki时，在wikiSuiteEntry中，动态添加store

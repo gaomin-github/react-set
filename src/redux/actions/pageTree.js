@@ -1,3 +1,4 @@
+import {createAction} from 'redux-actions'
 export const fetchPageTree=(wikiInfo,force)=>{
     return {
         type:'fetchPageTree',
@@ -11,3 +12,5 @@ export const fetchPageTree=(wikiInfo,force)=>{
         }
     }
 }
+
+export const testAction2=createAction('testAction2')

@@ -1,22 +1,17 @@
-import {createStore} from 'redux-dynamic-modules'
-// export default function configureStore(initialState){
-//     return createStore({
-//         initialState
-//     },
-//     // ...reducerModules,
-//     // ...sagas
-//     )
-// }
-
+import {createStore as ConfigStore} from 'redux-dynamic-modules'
+import {createStore} from 'redux';
+import {fetchTreeReducer,reducerModule,testReducer2} from '$redux/reducers/fetchTree'
 const initialState={
     description:'init my redux state'
 }
-export default createStore({
-        initialState
-    },
-    // ...reducerModules,
-    // ...sagas
-    )
+// const store=ConfigStore({
+//     initialState,
+//     },
+// )
+
+// store.addModule(reducerModule())
 
 
+const store2=createStore(testReducer2,initialState)
+export default store2;
 
