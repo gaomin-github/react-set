@@ -1,7 +1,4 @@
 import {handleActions,handleAction} from 'redux-actions';
-// import {combineReducers} from 'redux'
-import {testAction2,fetchPageTree} from '$redux/actions/pageTree'
-
 
 export const fetchTreeReducer=handleActions(
     {
@@ -22,12 +19,22 @@ export const reducerModule=()=>({
 })
 
 export const testReducer2=handleAction(
-    testAction2,
+    'testAction2',
     (state,action)=>{
         console.log('testAction2 touched')
+        // console.log('action',28,action)
         return{
 
         }
+    },
+    null
+)
+
+export const testReducer3=handleAction(
+    'testAction3',
+    (state,action)=>{
+        console.log('testAction3 touched')
+        return {}
     },
     null
 )

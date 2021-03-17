@@ -14,8 +14,8 @@ export default class WikiEntry extends React.Component{
         // const {fetchPageTree}=this.props;
         // console.log('fetchPageTree',fetchPageTree,15)
         // fetchPageTree({spaceId:'space1',wikiToken:'wiki_token_1'});
-        const {testAction2}=this.props
-        testAction2()
+        const {testAction3}=this.props
+        testAction3({spaceId:'space1',wikiToken:'wiki_token_1'})
     }
 
     render(){

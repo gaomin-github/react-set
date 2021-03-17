@@ -118,3 +118,12 @@ reducer，接收action对应的state的更新
 // 初始化时，引用：business/common/services/store
 
 // 进入wiki时，在wikiSuiteEntry中，动态添加store
+
+16.动态store实现原理？使用动态store后，reducers监听的action是字符串还是？
+
+// 17.redux-actions中的createAction是创建action时必须调用的吗？不使用，reducer会调用不到吗？
+
+// createAction可有可无
+// reducer中，按照字符串创建handleAction即可
+
+
