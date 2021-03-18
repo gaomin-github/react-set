@@ -127,3 +127,20 @@ reducer，接收action对应的state的更新
 // reducer中，按照字符串创建handleAction即可
 
 
+18.pageTree->WikiTree（点击，扩展等事件如何绑定到结点）
+
+19.拖拽时，弹窗等事件触发，dom如何操作的？
+1）src/wiki/components/wiki-tree/WikiTree.tsx
+this.$wikitree = $('.wiki-tree');
+this.$wikitree.on('dragenter', 'li', this.limitDragEnter);
+含义？
+
+组件事件重绑定，封装原理？
+
+20.组件库位置，如何触发（以弹窗为例）
+
+// 21.saga安装后报错。
+// 解决方案参考：https://juejin.cn/post/6844903810482044936#heading-4
+// wiki模块未找到处理该问题的代码？
+
+22.saga使用take('*')获取不到action的参数

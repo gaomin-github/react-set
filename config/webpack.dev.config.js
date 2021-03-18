@@ -10,7 +10,7 @@ const baseWebpackConfig=require('./webpack.base.config.js').getBaseWebpackConfig
 const devConfig={
     mode:'development',
     entry:{
-        main:['./src/index.js']
+        main:'./src/index.js',
     },
     output:{
         filename: 'js/[name].[dev].js',

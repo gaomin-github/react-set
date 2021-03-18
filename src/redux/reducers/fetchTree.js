@@ -1,3 +1,4 @@
+import { useParams } from 'react-router';
 import { combineReducers } from 'redux';
 import {handleActions,handleAction} from 'redux-actions';
 
@@ -38,9 +39,10 @@ export const testReducer3=handleAction(
         console.log('testAction3 touched','action')
         // console.log(action)
         let res={
-            wikiDescription:payload.wikiDescription
+            // wikiDescription:payload.wikiDescription,
+            params:payload
         }
-        console.log('res',res)
+        // console.log('res',res)
         return res;
     },
     {}
