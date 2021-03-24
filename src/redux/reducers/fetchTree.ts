@@ -1,4 +1,3 @@
-import { useParams } from 'react-router';
 import { combineReducers } from 'redux';
 import {handleActions,handleAction} from 'redux-actions';
 
@@ -47,15 +46,6 @@ export const testReducer3=handleAction(
     },
     {}
 )
-
-export const reducerModel1=()=>{
-    return {
-        id:"test3",
-        reducerMap:{
-            // test3:testReducer3
-        }
-    }
-}
 
 export const defaultReducer=combineReducers({
     'testReducer2':testReducer2,

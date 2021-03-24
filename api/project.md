@@ -115,3 +115,13 @@ ReactDOM.render(
 </Switch>
 <IRoute path="/" component={OverlayManager} />
 <RedirectRoutes />
+项目分模块了解
+1.根据启动速度查看，启动时webpack做了哪些事情？
+
+2.启动之后，初始化时，react生态，做了哪些事情？
+
+3.初始化为从哪里为wiki做准备？
+
+4.wiki对外暴露的接口，以及wiki监听内部（外是否跨项目？）redux/saga可监听范围？
+
+

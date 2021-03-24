@@ -7,7 +7,7 @@ const WebpackDevServer=require('webpack-dev-server');
 const devConfig=require('../config/webpack.dev.config.js');
 
 let webpackConfig=devConfig;
-console.log(webpackConfig,8)
+// console.log(webpackConfig,8)
 const compiler=createCompiler(webpackConfig);
 // console.log('webpackConfig',webpackConfig,9)
 

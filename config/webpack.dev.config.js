@@ -10,14 +10,14 @@ const baseWebpackConfig=require('./webpack.base.config.js').getBaseWebpackConfig
 const devConfig={
     mode:'development',
     entry:{
-        main:'./src/index.js',
+        main:'./src/index.tsx',
     },
     output:{
         filename: 'js/[name].[dev].js',
         chunkFilename: 'js/[name].[dev].js',
     },
     resolve:{
-        extensions:['.js','.jsx'],
+        extensions:['.tsx','.ts','.json','.js','.jsx'],
         alias:{
             $redux:path.resolve(__dirname,'../src/redux'),
             $service:path.resolve(__dirname,'../src/service'),
@@ -29,16 +29,21 @@ const devConfig={
         rules:[
             ...utils.styleLoaders({sourceMap:false}),
             {
-                test:/\.(js|jsx)$/,
+                test:/\.(ts|tsx|js|jsx)$/,
                 use:['source-map-loader'],
                 // exclude:/node_modules/,
                 enforce:'pre'
             },
             {
-                test:/\.(js|jsx)$/,
+                test:/\.(ts|tsx|js|jsx)$/,
                 use:['babel-loader'],
                 // exclude:/node_modules/,
                 // enforce:'pre'
+            },
+            {
+                test:/\.(ts|tsx)$/,
+                use:['ts-loader'],
+                exclude:/node_modules/
             }
         ]
     },
@@ -55,7 +60,7 @@ const devConfig={
     stats:{
         warnings:false
     },
-    devtool:'eval-source-map',
+    devtool:'source-map-inline',
 }
 
 // console.log('merge',merge)

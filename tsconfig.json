@@ -1,0 +1,52 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "esModuleInterop": true,
+        "skipLibCheck":true,
+        "paths":{
+            "$*":["./src/*"]
+        },
+        "allowSyntheticDefaultImports": true
+    }
+}
+
+
+// {
+//     "compileOnSave": false,
+//     "compilerOptions": {
+//       "typeRoots": [
+//       ],
+//       "module": "esnext",
+//       "target": "esnext",
+//       "lib": [
+//         "esnext",
+//         "dom",
+//         "dom.iterable"
+//       ],
+//       "outDir": "dist",
+//       "sourceMap": true,
+//       "allowJs": true,
+//       "jsx": "react",
+//       "moduleResolution": "node",
+//       "forceConsistentCasingInFileNames": true,
+//       "noImplicitReturns": true,
+//       // sheet core 分解暂时先允许implict this。
+//       // "noImplicitThis": true,
+//       "skipLibCheck": true,
+//       "strictNullChecks": true,
+//       "suppressImplicitAnyIndexErrors": true,
+//       "experimentalDecorators": true,
+//       "allowSyntheticDefaultImports": true,
+//       // "strictPropertyInitialization": true, // 开启此选项后对象不允许存在未初始化的属性，后面会开启此选项并修复报错
+//       "noUnusedLocals": true,
+//       "baseUrl": ".",
+//       "paths": {
+//         "$*":["./src/*"]
+//       },
+//     },
+//     "include":["src"]
+//     // "exclude": [
+//     //   "node_modules",
+//     // ]
+//   }
+  

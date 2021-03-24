@@ -1,4 +1,4 @@
-import {createAction, createActions} from 'redux-actions'
+import {createAction} from 'redux-actions'
 export const fetchPageTree=(wikiInfo,force)=>{
     return {
         type:'fetchPageTree',
@@ -28,5 +28,6 @@ export const testAction3=(params)=>({
         info:'safa test',
         params,
     },
+    p:[1,2,3]
     // payload:params
 })
