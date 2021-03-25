@@ -136,14 +136,36 @@ const attr = await domHelper.getDomAttribute($li.asElement(), ['data-token']);
 8）puppeter设置timeout和retries作用？
 9）展开和折叠文档树，token都是写静态串。（动态获取token可能性？优势（性价比）？）
 10）按照标题匹配树结点。精准匹配/近似匹配
+11）有权限和无权限场景验证？(按照token操作，找权限不同的两个wikitoken)
+是否有权限，需要找不同控制权的wikiToken
+参考文档是否可编辑判断：test/wiki/wiki_details/primary_paths.spec.js
+12）wiki独立权限设置：用例大部分功能无法查看（用的线上账号，之后再boe试试）
+
+13）wiki知识空间设置->【进入知识空间设置功能不可见，进入基本信息的设置页，进入权限设置，进入成员设置，进入更多页面，wiki详情页】（boe和正式环境）？？？
+14）wiki页面树拖拽（需要看功能代码实现，找测试用例）
+15）wiki目录协同用例
+【
+a账户更新节点文档title，b账号正在浏览该文档，需要拿到最新的，如何感知？；
+协同操作和同session多设备操作区别？
+】
+16）wiki高级搜索【会话含义】
+键盘上下，keyup固定键模拟感知？
+17）新版wiki页面【侧边栏宽度变化检测，导航栏面包屑展示，导航栏编辑文档状态判断，wiki为sheet文档时编辑文档名字焦点感知】
+18）列表数量/高度变化感知？
+输入关键词，延迟等待后，比对关键字输入前后列表长度
+参考：test/wiki/wiki_details/search.spec.js
+19）两个权限相关内容无法测试
+知识库管理权限（新建知识库，修改自己的知识库）
+人员管理权限？业务入口？实现功能？
 
 
-e2e结构
-1.全局变量和通用方法结构
-1）初始化全局变量：test/init_wiki.js
-超时设置：test/config/wiki-online.js
 
 
+
+
+翻译功能实现？
+分页加载实现？
+关注文档更新，如何同步?
 
 
 test/wiki/wiki_details/tree/tree.spec.js 代码解读
@@ -166,11 +188,59 @@ inputElement.type(str,{delay:100})  //选中input框，输入内容
 page.type(selector,str)
 page.click(btnSelector)
 btnElement.click()
+page.$eval(listContianer,$=>$.scroll({top:300}))//下拉触发滚动。参照 test/wiki/wiki_details/search.spec.js
+page.keyboard.press('Enter')//触发enter键
+page.keyboard.up('Alt')；//触发alt键
+page.keyboard.type(str)//输入内容
 8）导航页相关
 page.waitForNavigation()    //和promie.all结合使用
 page.url()  //获取当前url
 9）element.asElement()
 10）判断hover弹窗有效性
+
+
+
+
+
+
+e2e结构
+1.全局变量和通用方法结构
+1）初始化全局变量：test/init_wiki.js
+超时设置：test/config/wiki-online.js
+
+
+test/wiki已有功能
+wiki_detail/
+1.additional.spec.js  //wiki详情页附加信息：切换知识库，收藏和取消，面包屑导航hover,面包屑导航历史记录，箭头跳转主页，箭头跳转空间（或知识库或收藏）；跳转回wiki首页，首页最近访问记录
+edit.spec //wiki详情页，编辑doc，为doc插入图片，doc添加评论
+favorites.spec //进入wiki首页，跳转详情页，收藏和取消收藏，切换知识库
+primary_paths：进入wiki详情页，编辑和不能编辑doc
+search.spec：wiki详情页，搜索功能，搜索下拉
+
+wiki_home/
+primary_path：在首页通过【卡片，搜索，最近浏览，链接】进入wiki详情页
+search：在wiki首页搜索【搜索栏显示最近浏览，关键字搜索结果，搜索结果hover显示截图】
+
+wiki_space_setting/
+知识库管理；知识库设置；成员管理
+
+add-to-wiki/
+doc到wiki的过程（需再研究）
+
+permission/
+树和成员权限相关（需再研究）
+
+缺少用例代码：
+
+wiki首页：
+高级搜索
+
+wiki详情页：
+wiki页面树协同
+wiki页面树拖拽（有代码，已注释，准确性？）
+wiki导航栏（面包屑）
+wiki右上角...弹出面板相关
+
 
 
 
