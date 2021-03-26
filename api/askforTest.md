@@ -197,7 +197,7 @@ page.waitForNavigation()    //和promie.all结合使用
 page.url()  //获取当前url
 9）element.asElement()
 10）判断hover弹窗有效性
-
+11)报错：https://www.itoukun.com/2019/09/27/puppeteer%E3%81%AE%E3%80%8Cnode-is-detached-from-document%E3%80%8D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/
 
 
 

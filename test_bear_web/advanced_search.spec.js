@@ -36,10 +36,11 @@ describe('wiki知识库首页：高级搜索用例',function(){
         await page.waitForSelector(nav);
     })
     it('快捷键打开或关闭高级搜索',async()=>{
-        
+
     })
     
     it('高级搜索弹窗：名字，文件夹名称，会话名称过滤',async()=>{
+        // 过滤面板
         const input='.advanced-search__content-filters',
             inputResult='.lightweight-search-input__search-result-container.visible',
 
