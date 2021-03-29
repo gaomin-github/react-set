@@ -195,9 +195,43 @@ this.$wikitree.on('dragenter', 'li', this.limitDragEnter);
 // 参考：src/wiki/components/WikiDetailV2/WikiDetailV2.tsx
 // action：currentBaseWikiInfo
 
+// 27.树数据初始化
+// 1）初始化抓取：fetchPageTreeDataBySpaceId
+// src/wiki-v2/components/WikiDetailV2/WikiDetailV2.tsx
+// 2）wiki树的数据来源
+// selectRootNodeEntity：src/wiki-v2/components/page-tree/PageTreeV2.tsx
+// state.wiki.pageTree.wikiNodeMap[root_node_id.toc_root]
 
-27.项目接入ts报错
 
 
-28.协同处理
+// 28.协同处理
+// 参考文档：https://bytedance.feishu.cn/wiki/wikcnMHpUjdPyvYCIirFv1y0qle?from=from_parent_docs
+
+// 1）协同引入位置：
+// src/wiki-v2/components/page-tree/PageTreeV2.tsx
+// 按照spaceId创建协同连接。每个spaceId对应一个知识库
+// 2）协同初始化过程：
+// 按照spaceId创建连接sync监听实例：src/wiki-v2/components/sync-v2/SyncV2.ts
+// 和服务端约定变动更新，数据传递结构
+// 判断收到的数据类型，执行相应更新。
+// wiki树目录名称更新触发action：syncUpdateV2；
+// 参考：src/business/wiki-v2/redux/actions/syncPageTreeV2.ts
+// 对应处理saga:syncPageTreeSagaV2；
+// src/business/wiki-v2/redux/sagas/syncPageTreeV2.ts
+// saga去获取新数据，dispatch更新到state中
+
+
+// 问题？
+// 1）如何感知内容被更新？
+// 2）什么时机调用，获取最新内容？
+// 3）获取的最新数据，如何同步到页面？
+// 4）依赖哪些组件，具体的实现过程？
+// 建立连接时，需要获取一个MsgHandler实例；
+// MsgBox注册当前更新执行方法。需要按照当前token和随机id建立map映射；
+// 依赖：@adit/message-box @adit/sync（公司内部开发组件库）
+// MsgBox注册回调函数
+
+
+
+
 
