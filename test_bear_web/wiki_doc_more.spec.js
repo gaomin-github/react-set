@@ -2,7 +2,7 @@
 // “新版wiki页面”用例，doc内容hover右上角
 const {envCfg}=global;
 const {wiki,homeUrl,mochaTestRetryTimes}=envCfg;
-const {cratePage, createPage}=require('../utils');
+const {createPage}=require('../utils');
 const expect=require('chai').expect;
 
 const more='button[data-selector="more-menu"]',
@@ -98,13 +98,8 @@ describe('wiki详情页：doc右上角...',function(){
 
     // })
     it('显示编写者',async()=>{
-            // 出现span【class]
-            //  op-author-line
-            // 按钮样式变化
-            // li button aria-checked=true/false
-
         const authorSelector='span .op-author-line',
-        switchSelector=`${morePopMenu} ${morePopMenuItem} `;
+            switchSelector=`${morePopMenu} ${morePopMenuItem} `;
         // 根据description判断
         await page.waitFor(500);
         let itemHandlers=await page.$$(`${morePopMenu} ${morePopMenuItem}`);
@@ -131,51 +126,23 @@ describe('wiki详情页：doc右上角...',function(){
             await page.waitFor(500)
             await page.waitForSelector(authorSelector);
         }
-
-        // const itemHandler=await getElementHandler(page,`${morePopMenu} ${morePopMenuItem} span`,'显示编写者');
-        // let parentHandler=await itemHandler.evaluate(el=>{
-        //     console.log(el,112)
-        //     let curElement=el.asElement();
-        //     return curElement.parentElement;
-        // })
-        // expect(parentHandler).to.exist;
-        // console.log('parentHandler',parentHandler,113)
-        // let switchHandler=await parentHandler.waitForSelector('button[aria-checked="true"]');
-        // if(switchHandler){
-        //     await page.waitForSelector(authorSelector);
-        //     await parentHandler.click();
-        //     await page.waitFor(500);
-        //     let authorHandler=await page.waitForSelector(authorSelector);
-        //     expect(authorHandler).to.not.exist;
-        // }else{
-        //     let authorHandler=await page.waitForSelector(authorSelector);
-        //     expect(authorHandler).to.not.exist;
-        //     await parentHandler.click();
-        //     await page.waitFor(500);
-        //     await page.waitForSelector(authorSelector);
-        // }
-        // if(parentHandler)
-
-        // await itemHandler.click();
-
-        // await page.waitFor(500);
-        // await waitFor(authorSelector)
-
-
     })
-    // it('查看评论',async()=>{
-    //     // 出现评论弹窗。点击空白处消失
-    //     await page.waitFor(500)
-    //     const history='.comment-history';
-    //     // const dialogTitle=await getElementHandler(page,popTitle,'文档信息');
-    //     // expect(dialogTitle).to.exist;
-    // })
+    it('查看评论',async()=>{
+        // 出现评论弹窗。点击空白处消失
+        const popTitle='.comment-history';
+        await page.waitFor(500)
+        let itemHandler=await getElementHandler(page,`${morePopMenu} ${morePopMenuItem} span`,'历史评论');
+        await itemHandler.click();
+        await page.waitFor(500);
+        expect(dialogTitle).to.exist;
+    })
     // it('翻译',async()=>{
-    //     // 出现已翻译为/退出翻译
-    //     // await page.waitFor(500)
-    //     // const history='.comment-history';
-    //     // const dialogTitle=await getElementHandler(page,popTitle,'文档信息');
-    //     // expect(dialogTitle).to.exist;
+        // chrome二级pop弹窗需要查调试方式
+        // 出现已翻译为/退出翻译
+        // await page.waitFor(500)
+        // const history='.comment-history';
+        // const dialogTitle=await getElementHandler(page,popTitle,'文档信息');
+        // expect(dialogTitle).to.exist;
     // })
 
 })
