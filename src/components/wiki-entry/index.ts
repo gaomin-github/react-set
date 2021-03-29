@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import wikiEntry from './wikiEntry.tsx';
+import wikiEntry from './wikiEntry';
 import {fetchPageTree,testAction2,testAction3} from '$redux/actions/pageTree'
 
 

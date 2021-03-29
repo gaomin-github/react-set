@@ -2,7 +2,7 @@ import * as React from 'react';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 
 // import {createContext} from 'react';//
-import Loadables  from './loadables.tsx';
+import Loadables  from './loadables';
 
 // import wikiEntry from '$components/wiki-entry/wikiEntry'
 // const globalServiceContext={

@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 
 export const WikiEntry=Loadable({
     // loader:()=>import('$components/wiki-entry/wikiEntry'),
-    loader:()=>import('$components/wiki-entry/index.ts'),
+    loader:()=>import('$components/wiki-entry/index'),
 
     loading:()=>null,
     render:loaded=>{

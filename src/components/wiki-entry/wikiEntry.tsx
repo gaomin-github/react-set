@@ -1,10 +1,10 @@
 import React from 'react';
 // import MyTree from '$components/tree'
-import {testAction2,testAction3} from '$redux/actions/pageTree.ts'; 
+import {testAction2,testAction3} from '$redux/actions/pageTree'; 
 
 interface IProps{
     testAction2:typeof testAction2,
-    testAction3:typeof testAction3
+    // testAction3:typeof testAction3
 }
 
 export default class WikiEntry extends React.Component<IProps>{
@@ -18,7 +18,7 @@ export default class WikiEntry extends React.Component<IProps>{
 
     init(){
         const {testAction2}=this.props
-        // console.log('testAction2',testAction3)
+        console.log('testAction2',testAction2)
         testAction2({params:{spaceId:'space1',wikiToken:'wiki_token_1'}})
         // console.log(testAction2);
 

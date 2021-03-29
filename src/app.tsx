@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Provider} from 'react-redux';
-import RouteMain from './routes/routeMain.tsx';
+import RouteMain from './routes/routeMain';
 
 interface AppProps{
     store:any
@@ -18,7 +18,7 @@ class App extends Component<AppProps>{
             <div className="app-wrapper">
                 this is app wrapper1
             <Provider store={this.props.store}>
-                // <RouteMain/>
+                <RouteMain/>
             </Provider>
             </div>
         )

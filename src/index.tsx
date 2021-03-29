@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import 'regenerator-runtime/runtime'
 import App from './app';
-import store from '$redux/store'
+import store from '$redux/store/index'
 
 const MOUNT_NODE=document.getElementById('mainBox');
 // console.log('MOUNt_NODE',MOUNT_NODE,6)

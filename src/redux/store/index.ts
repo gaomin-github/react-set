@@ -21,14 +21,6 @@ const initialState={
 const commonExtension=[getSagaExtension(),]
 
 // console.log(testReducer3,'testReducer3')
-
-const store3=ConfigStore({
-        initialState,
-        extensions:commonExtension
-    },
-    ...getReduceModule()
-     )
-
 const reducerModule1={
     id:'totest',
     reducerMap:{
@@ -37,6 +29,23 @@ const reducerModule1={
     },
     sagas:[testSaga1,testSaga2]
 }
+
+const store3=ConfigStore({
+        initialState,
+        extensions:commonExtension
+    },
+    reducerModule1,
+);
+    // {
+    //   id:'totest',
+    //   reducerMap:{
+    //       testReducer2
+    //   },
+    //   sagas:[testSaga1,testSaga2]  
+    // }
+    // ...getReduceModule()
+
+
 
 function getReduceModule(){
     return [reducerModule1]
