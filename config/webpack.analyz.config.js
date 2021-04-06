@@ -2,22 +2,25 @@ const fs=require('fs');
 const merge = require('webpack-merge');
 const path=require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// 编译分析
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MinCssExtractPlugin = require('mini-css-extract-plugin');
 
 
-// const utils=require('./util.js')
 const baseWebpackConfig=require('./webpack.base.config.js').getBaseWebpackConfig()
-// console.log(path.resolve())
-// console.log('path',path)
-const devConfig={
-    mode:'development',
+const prodConfig={
+    mode:'production',
     entry:{
         main:'./src/index.tsx',
     },
     output:{
         filename: 'js/[name].[dev].js',
         chunkFilename: 'js/[name].[dev].js',
+        path:path.resolve(__dirname,'../built'),
+        publicPath:'./'
     },
     resolve:{
         extensions:['.tsx','.ts','.json','.js','.jsx'],
@@ -27,16 +30,6 @@ const devConfig={
             $components:path.resolve(__dirname,'../src/components')
         },
     },
-    devServer:{
-        historyApiFallback:true,
-        host:'0.0.0.0',
-        port:'3003',
-        open:false,
-        contentBase: path.resolve(__dirname, "../"),
-        publicPath: "/",
-        disableHostCheck: true,
-    },
-    devtool: "inline-source-map",
 
     module:{
         rules:[
@@ -70,6 +63,11 @@ const devConfig={
         ]
     },
     plugins:[
+        // new MinCssExtractPlugin({
+        //     filename: 'mybearweb/css/[name].css',
+        //     chunkFilename: 'mybearweb/css/[id].css'
+        // }),
+
         new HtmlWebpackPlugin({
             inject:true,
             // template:index_template,
@@ -112,12 +110,18 @@ const devConfig={
     devtool:'source-map-inline',
 }
 
-// devConfig.plugins.push(new BundleAnalyzerPlugin({
-//     analyzerPort: 4003,
-// }))
-
 // console.log('merge',merge)
 
-// let config=merge(baseWebpackConfig,devConfig);
+prodConfig.plugins.push(new BundleAnalyzerPlugin({
+    // analyzerMode:'server',
+    // analyzerHost: 'localhost',
+    analyzerPort: 4003,
+    // reportFilename: 'report.html',
+    // defaultSizes: 'parsed',
+    // generateStatsFile: false,
+    // statsFilename: 'stats.json',
+    // statsOptions: null,
+    // logLevel: 'info'
+}))
 
-module.exports=devConfig;
+module.exports=prodConfig;

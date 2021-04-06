@@ -1,27 +1,56 @@
 import React from 'react';
 // import MyTree from '$components/tree'
-import {testAction2,testAction3} from '$redux/actions/pageTree'; 
+import {fetchWikiInfo,fetchWikiCataLogTree} from '$redux/actions/pageTree'; 
+import WikiSidebar from '$components/wiki-sidebar';
 
-interface IProps{
-    testAction2:typeof testAction2,
+import './wikiEntry.less';
+
+interface IPropsDispatch{
+    fetchWikiInfo:typeof fetchWikiInfo,
+    fetchWikiCataLogTree:typeof fetchWikiCataLogTree,
+    // testAction2:typeof testAction2,
     // testAction3:typeof testAction3
 }
+interface IPropsState{
+    // curWikiToken:typeof curWikiToken,
+    // wikiCatalogTree:typeof wikiCatalogTree,
+    // wikiInfo:typeof wikiInfo
+}
 
-export default class WikiEntry extends React.Component<IProps>{
+interface IPropsCustomize{
+    callback:()=>void,
+}
+type IProps=IPropsDispatch&IPropsCustomize
+
+
+interface iState{
+    pageTitle:string
+}
+
+export default class WikiEntry extends React.Component<IProps,iState>{
     constructor(props){
         super(props);
+        this.state={
+            pageTitle:'wikiEntry'
+        }
     }
 
     componentDidMount(){
         this.init()
     }
+    componentDidUpdate(){
+        console.log('wikiEntry props',this.props)
+    }
 
     init(){
-        const {testAction2}=this.props
-        console.log('testAction2',testAction2)
-        testAction2({params:{spaceId:'space1',wikiToken:'wiki_token_1'}})
-        // console.log(testAction2);
-
+        const {fetchWikiInfo,fetchWikiCataLogTree}=this.props
+        // 初始化当前wiki知识库信息
+        fetchWikiInfo({userId:'123',session:`123_${Math.random()}`,wikiToken:`123_${Math.random()}`})
+        // 初始化wiki详情页目录树
+        fetchWikiCataLogTree({wikiNodeMap:{
+            '1':'1',
+            '2':'2'
+        }})
     }
 
     handleClick(params){
@@ -29,18 +58,23 @@ export default class WikiEntry extends React.Component<IProps>{
     }
 
     render(){
-        // console.log('props',this.props,23)
-        // const {wikiDescription}=this.props;
-        // console.log(wikiDescription,24)
-        // console.log(a,25)
+
         return(
-            <div className="wiki-entry-wrapper">
-                this is wiki entry-wrapper
-                {/* {wikiDescription} */}
-                <div >
+            <div className="wiki-wrapper">
+                <div className="wiki-sidebar">
+                    <WikiSidebar/>
+                </div>
+                <div className="wiki-content">
+                    <div className="wiki-content-nav">
+                        this is wiki entry-wrapper:
+                        
+ <div >
                     {/* this is tree container */}
                     {/* <MyTree onClick={this.handleClick}/> */}
                 </div>
+                    </div>
+                </div>
+               
             </div>
         )
     }

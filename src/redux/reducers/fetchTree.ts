@@ -1,55 +1,12 @@
-import { combineReducers } from 'redux';
-import {handleActions,handleAction} from 'redux-actions';
+import {handleActions} from 'redux-actions';
 
-export const fetchTreeReducer=handleActions(
-    {
-        ['fetchPageTree']:(state,payload)=>{
-            console.log('state',4,state)
-            return {};
-        }
+//目录树
+export default handleActions({
+    'fetchCataLogTree':(state,{payload})=>{
+        return payload
     },
-    []
-)
-
-export const reducerModule=()=>({
-    id:'aState',
-    reducerMap:{
-        // wikiReducer
-        fetchTreeReducer
+    'addCatalogNode':(state,{payload})=>{
+        console.log('add','payload',payload)
     }
-})
+},null)
 
-export const testReducer2=handleAction(
-    'testAction2',
-    (state,action)=>{
-        console.log('testAction2 touched')
-        // console.log('action',28,action)
-        return{
-
-        }
-    },
-    null
-)
-
-export const testReducer3=handleAction(
-    'testAction3',
-    (state,{payload})=>{
-        // console.log('testAction3 touched','state',state)
-        console.log('testAction3 touched','action')
-        // console.log(action)
-        let res={
-            // wikiDescription:payload.wikiDescription,
-            params:payload
-        }
-        // console.log('res',res)
-        return res;
-    },
-    {}
-)
-
-export const defaultReducer=combineReducers({
-    'testReducer2':testReducer2,
-    'mySpaceTest1':testReducer3
-})
-
-// export const defaultReducer=combineReducers({testReducer2,testReducer3})

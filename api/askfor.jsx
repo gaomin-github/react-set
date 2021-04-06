@@ -231,7 +231,14 @@ this.$wikitree.on('dragenter', 'li', this.limitDragEnter);
 // 依赖：@adit/message-box @adit/sync（公司内部开发组件库）
 // MsgBox注册回调函数
 
+// 1）@adit/sync以memberId为key建立连接
+// memberId在SyncV2.ts中初始化，是随机数。同步到store.wiki中。
+// 处理action：updateMemberId
+// 位置：src/business/wiki/redux/actions/pageTree.ts
+// 处理reducer：memberId
+// 位置：src/business/wiki/redux/reducers/pageTree.ts
 
-
+// 29.store可以通过provider全局获取
+// connector可以将store重封装后的数据传递给对应组件
 
 

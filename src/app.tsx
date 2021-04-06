@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Provider} from 'react-redux';
 import RouteMain from './routes/routeMain';
 
+import './app.less';
+
 interface AppProps{
     store:any
 }
@@ -15,12 +17,9 @@ class App extends Component<AppProps>{
     }
     render(){
         return(
-            <div className="app-wrapper">
-                this is app wrapper1
             <Provider store={this.props.store}>
                 <RouteMain/>
             </Provider>
-            </div>
         )
     }
 }

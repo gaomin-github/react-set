@@ -1,24 +1,19 @@
+import React from 'react';
 import {connect} from 'react-redux';
+import {fetchWikiCataLogTree,fetchWikiInfo} from '$redux/actions/pageTree'
+// import {wikiCatalogTree,wikiInfo} from '$redux/selectors/index';
+
 import wikiEntry from './wikiEntry';
-import {fetchPageTree,testAction2,testAction3} from '$redux/actions/pageTree'
-
-
-
-// const mapStateToProps=(state)=>({
-//     // wikiDescription:state.wikiDescription
-//     // const wikiDescription=(state)=>state.wikiDescription
-//     // return {wikiDescription(state)}
-//     state
-// })
 
 const mapStateToProps=(state)=>({
-    mySpaceTest1:state.a&&state.a.mySpaceTest1
+    // mySpaceTest1:state.a&&state.a.mySpaceTest1,
+    // curWikiToken:curWikiToken(state),
+    // curWikiInfo:curWikiInfo(state),
+    // wikiCatalogTree:wikiCatalogTree(state)
+    // wikiInfo:wikiInfo(state)
 })
 const mapDispatchToProps={
-    fetchPageTree,
-    testAction2,
-    testAction3
+    fetchWikiInfo,
+    fetchWikiCataLogTree
 }
-const Connector=connect(mapStateToProps,mapDispatchToProps)(wikiEntry)
-// console.log('Connector',Connector)
-export default Connector;
+export default connect(mapStateToProps,mapDispatchToProps)(wikiEntry) as React.ComponentClass

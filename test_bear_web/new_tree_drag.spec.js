@@ -26,14 +26,13 @@ describe('wiki详情页：树拖拽操作',function(){
         await page.close()
     })
     it('拖拽到某节点上方',async ()=>{
-    
         // 预期：
         // 是父节点，不动
         // 非父节点，成为最后一个子节点
         // 父节点不能拖动到子节点
         // tip：需要至少两个节点
         await page.waitFor(2000);
-        const dragNode='.tree-node-wrapper[draggable="true"] div div .tree-item';
+        const dragNode='.tree-node-wrapper[draggable="true"] .tree-item';
         await page.waitForSelector(dragNode)
         let dragHandlers=await page.$$(dragNode);
         let toHandler=dragHandlers[0];

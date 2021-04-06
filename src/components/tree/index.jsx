@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
-class MyTree extends Component{
+
+import './tree.less'
+
+export default class MyTree extends Component{
     constructor(p){
         super(p)
         // console.log('mytree component init',5)
@@ -55,11 +58,10 @@ class MyTree extends Component{
     }
 
     render(){
-        return <div
+        return <div className="tree-wrapper"
         {...this.state.targetProps}>
             this is my Tree
         </div>
     }
 
 }
-export default MyTree;

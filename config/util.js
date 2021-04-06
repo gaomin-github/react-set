@@ -66,12 +66,15 @@ function cssLoaders(options) {
   exports.styleLoaders = function styleLoaders(options) {
     const output = [];
     const loaders = cssLoaders(options);
+    console.log('loaders',loaders,69)
     for (let extension in loaders) {
+      console.log('extension',extension,71)
       output.push({
         test: new RegExp('\\.' + extension + '$'),
         use: loaders[extension]
       });
     }
+    console.log('output',JSON.stringify(output),76)
     return output;
   };
   

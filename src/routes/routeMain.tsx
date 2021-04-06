@@ -20,21 +20,22 @@ import Loadables  from './loadables';
 const testCom=()=><div>testCom</div>
 
 const RouteMain=()=>{
+    const wikiPaths=['/wiki','/mywiki']
     return(
-        <div className='route-wrapper'>
+        <>
             {<Router>
                 
             {/* <LoadingServiceContext.provider value={globalServiceContext}> */}
                 <Switch>
                     <Route path="/test" component={testCom}/>
 
-                    <Route path="/wiki" component={Loadables.WikiEntry}/>
+                    <Route path="/wiki" exact strict component={Loadables.WikiEntry}/>
                     {/* <Route path='/doc' component={Loadables.DocEntry}/> */}
                 </Switch>
             {/* </LoadingServiceContext.provider> */}
             </Router>}
-
-        </div>
+        </>
+        
     )
 }
 export default RouteMain;

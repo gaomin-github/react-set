@@ -35,23 +35,31 @@ import {take,put} from 'redux-saga/effects'
 //     // })
 // }
 
-export function* testSaga1(){
-    console.log('testSata1');
+function sagaWatcher(){
 
-    const anyAction=yield take('*');
-    yield put({
-        type:'testAction2'
-    })
-    console.log('testSata1',anyAction);
+}
+
+export function* testSaga1(){
+    const anyAction=yield take('*')
+    console.log('anyAction',44,anyAction.type)
+    // console.log('testSata1');
+
+    // const anyAction=yield take('*');
+    // yield put({
+    //     type:'testAction2'
+    // })
+    // console.log('testSata1',anyAction);
     // yield fork(requestWatcher)
     // yield all([fork(requestWatcher)])
 }
 
 export function* testSaga2(){
-    console.log('testSata2');
+    // console.log('testSata2');
     // yield fork(requestWatcher)
     // yield all([fork(requestWatcher)])
 }
+
+
 
 
 // export default requestSaga
