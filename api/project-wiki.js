@@ -296,6 +296,7 @@ AdvancedSearch：依赖redux和父组件
 (数据/action:来源于父组件+redux)
 数据和事件初始化：初始化users宽度；监听resize
 9.3.3.2.Share
+组件：[TransitionMotion{LazyRender{Align{(PermissionApplication|ShareMenu)}}}]
 组件：[LazyRender,PermissionApplication,ShareMenu{InviteMember},Popover]
 数据/action：来源于父组件+redux
 数据初始化：
@@ -308,7 +309,8 @@ AdvancedSearch：依赖redux和父组件
 
 
 9.3.3.2.2.ShareMenu
-组件：[InviteMember{AnyoneVisitRemindDialog,AskOwnerExternalDialog,RemoveMinuteModal,TransferOwnerModal,CopyLinkToast,inviteMemberLayout}]
+
+组件：[InviteMember{RenderPanelRoutes{[InviteMemberLayout,InviteMemberManager,AskLinkSharingPanel,QrcodePanel,PasswordSettingPanel]},AnyoneVisitRemindDialog,AskOwnerExternalDialog,RemoveMinuteModal,TransferOwnerModal,CopyLinkToast}]
 数据/action：来源于父组件+redux
 数据初始化：增加引导初始化
 
@@ -317,6 +319,9 @@ AdvancedSearch：依赖redux和父组件
 数据/action:来源于父组件
 
 数据初始化：初始化引导步骤
+
+9.3.3.2.2.2.InvitedMemberManager
+组件：[InfiniteScroll{InvitedMemberItem}]
 
 9.3.3.3.MoreMenu：（数据来源：父组件+redux)
 数据初始化：
@@ -377,7 +382,7 @@ fg需要在哪里通过代码判断？（fg通过go生成模板，内部携带fg
 tea打点的不同方式
 
 fg用于判断功能是否开放，只有是否两种情况。
-gf数据集中获取：
+fg数据集中获取：
 src/business/wiki/helpers/featureGateHelper.ts
 
 逻辑可视化控制？
@@ -389,4 +394,5 @@ App.utils订阅：searchBox_blur
 clipBoard监听
 eventEmitter监听
 broadcast和协同，eventEmitter区别？适用场景？
+租户？tenant cross-tenant
 重复拉取的请求？
