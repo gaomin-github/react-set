@@ -57,7 +57,6 @@
     "redux-dynamic-modules": "^5.2.3",
     "redux-dynamic-modules-saga": "^5.2.3",
     "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1",
     "source-map-loader": "^0.2.4",
     "style-loader": "^2.0.0",
     "ts-loader": "^6.2.1",
@@ -69,7 +68,10 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "cytoscape": "^3.18.2",
     "regenerator-runtime": "^0.11.1",
+    "reselect": "^4.0.0",
+    "reselect-tools": "0.0.7",
     "webpack-merge": "^4.1.3"
   }
 }

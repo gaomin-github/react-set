@@ -1,8 +1,8 @@
 import React from 'react';
 import Tree from '$components/tree';
 import TreeNav from '$components/tree-nav';
-
 interface IProps{
+    
 }
 
 export default class WikiSideBar extends React.PureComponent<IProps>{
@@ -13,7 +13,7 @@ export default class WikiSideBar extends React.PureComponent<IProps>{
     //     console.log('wiki-sidebar did update')
 
     // }
-    constructor(p:IProps){
+    constructor(p){
         super(p)
     }
     componentWillUnmount(){
@@ -21,7 +21,6 @@ export default class WikiSideBar extends React.PureComponent<IProps>{
     }
 
     render(){
-
         return(
             <>
             {/* <TreeNav/>

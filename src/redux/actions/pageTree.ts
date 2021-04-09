@@ -32,3 +32,9 @@ export const addCatalogNode=(payload)=>({
     type:'addCatalogNode',
     payload
 })
+
+export const fetchAppInfo=(payload)=>({
+    type:'fetchAppInfo',
+    payload
+})
+

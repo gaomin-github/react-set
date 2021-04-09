@@ -3,10 +3,44 @@ import {createStore as ConfigStore} from 'redux-dynamic-modules'
 import {getSagaExtension} from 'redux-dynamic-modules-saga';
 // import {fetchTreeReducer,reducerModule,testReducer2,testReducer3,reducerModel1,defaultReducer} from '$redux/reducers/fetchTree'
 // import {defaultReducer} from '$redux/reducers/fetchTree.ts'
-import defaultWikiReducer from '$redux/reducers'
+import defaultWikiReducer,{fetchAppInfo} from '$redux/reducers'
 
 import {testSaga1,testSaga2} from '$redux/sagas/request'
-const initialState={
+
+
+
+var initialState={
+    // data: {
+    //     users: {
+    //       '1': {
+    //         id: '1',
+    //         name: 'bob',
+    //         pets: ['a', 'b'],
+    //       },
+    //       '2': {
+    //         id: '2',
+    //         name: 'alice',
+    //         pets: ['a'],
+    //       }
+    //     },
+    //     pets: {
+    //       'a': {
+    //         name: 'fluffy',
+    //       },
+    //       'b': {
+    //         name: 'paws',
+    //       }
+    //     }
+    //   },
+    //   ui: {
+    //     currentUser: '1',
+    //   },
+    //   wiki:{
+          
+    //   },
+    //   app:{
+    //         id:''
+    //     }
 }
 const commonExtension=[getSagaExtension(),]
 
@@ -14,7 +48,9 @@ const reducerModule1={
     id:'totest',
     reducerMap:{
         // testReducer2, //是从redux工具中看到的store数据结构key
-        'wiki':defaultWikiReducer
+        'wiki':defaultWikiReducer,
+        'app':fetchAppInfo,
+        'data':fetchAppInfo
     },
     sagas:[testSaga1,testSaga2]
 }
@@ -27,15 +63,4 @@ const store3=ConfigStore({
 );
 
 
-// store3.addModules([{
-//     id:'totest',
-//     reducerMap:{
-//         'a':defaultReducer,//是从工具中看到的store数据结构key
-//     },
-//     sagas:[testSaga1]
-
-// }])
-
-
 export default store3;
-

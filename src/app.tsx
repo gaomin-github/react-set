@@ -16,11 +16,21 @@ class App extends Component<AppProps>{
         console.log('app mounted')
     }
     render(){
+        const wikiObj={
+            wiki:{
+
+            }
+        }
         return(
+            // <Provider store={this.props.store}>
+            //     <RouteMain/>
+            // </Provider>
             <Provider store={this.props.store}>
-                <RouteMain/>
-            </Provider>
+            <RouteMain/>
+        </Provider>
+
         )
+
     }
 }
 export default App;
