@@ -30,7 +30,7 @@ const RouteMain=()=>{
                     <Route path="/test" component={testCom}/>
 
                     <Route path="/wiki" exact strict component={Loadables.WikiEntry}/>
-                    {/* <Route path='/doc' component={Loadables.DocEntry}/> */}
+                    <Route path="/redux_analyz" exact component={Loadables.ReduxAnalyz}/>
                 </Switch>
             {/* </LoadingServiceContext.provider> */}
             </Router>}

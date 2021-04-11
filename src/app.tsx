@@ -22,12 +22,12 @@ class App extends Component<AppProps>{
             }
         }
         return(
-            // <Provider store={this.props.store}>
-            //     <RouteMain/>
-            // </Provider>
             <Provider store={this.props.store}>
-            <RouteMain/>
-        </Provider>
+                <RouteMain/>
+            </Provider>
+        //     <Provider store={this.props.store}>
+        //     <RouteMain/>
+        // </Provider>
 
         )
 

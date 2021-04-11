@@ -24,7 +24,8 @@ const devConfig={
         alias:{
             $redux:path.resolve(__dirname,'../src/redux'),
             $service:path.resolve(__dirname,'../src/service'),
-            $components:path.resolve(__dirname,'../src/components')
+            $components:path.resolve(__dirname,'../src/components'),
+            $structure:path.resolve(__dirname,'../src/structure')
         },
     },
     devServer:{
