@@ -16,7 +16,7 @@ export const WikiEntry=Loadable({
 
 export const ReduxAnalyz=Loadable({
     // loader:()=>import('$components/wiki-entry/wikiEntry'),
-    loader:()=>import('$components/redux-analyz/index.jsx'),
+    loader:()=>import('$components/redux-analyz'),
 
     loading:()=>null,
     render:loaded=>{

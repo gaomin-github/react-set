@@ -15,14 +15,19 @@ export  const selectBackUrl=createSelector(pc,pc=>pc.backUrlMap)
 
   const selectCurrentUser=createSelector(appState,appState=>appState.currentUser);
 
-  const selectCurrentSuiteByObjToken=createSelector(entities,appState,(entities,appState)=>[entities.objs,appState.currentNoteToken['obj_token']]);
+export  const selectCurrentSuiteByObjToken=createSelector(entities,appState,(entities,appState)=>({entities:entities.objs,token:appState.currentNoteToken['obj_token']}));
   
   const selectAppconfigFavoritesHidden=createSelector(appState,appState=>appState.leanModeConfig.favoritesHidden);
 
   const selectAppconfigWikiHidden=createSelector(appState,appState=>appState.leanModeConfig.wikiHidden);
 
 // #DropDownMavMenu
-export const DropdownNavMenu_Com=createSelector(selectBackUrl,selectQuery,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,data=>data);
+// export const DropdownNavMenu_Com=createSelector(selectBackUrl,selectQuery,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,data=>data);
+
+
+const selectBackUrlTest=createSelector(selectBackUrl,selectBackUrl=>`${selectBackUrl}_1`);
+export const DropdownNavMenu_Com=createSelector(selectBackUrlTest,selectBackUrlTest=>`${selectBackUrlTest}_2`);
+// export const DropdownNavMenu_Com=createSelector(selectBackUrl,selectBackUrl=>`${selectBackUrl}_1`);
 
 
 

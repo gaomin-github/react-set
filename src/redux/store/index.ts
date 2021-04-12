@@ -10,37 +10,6 @@ import {testSaga1,testSaga2} from '$redux/sagas/request'
 
 
 var initialState={
-    // data: {
-    //     users: {
-    //       '1': {
-    //         id: '1',
-    //         name: 'bob',
-    //         pets: ['a', 'b'],
-    //       },
-    //       '2': {
-    //         id: '2',
-    //         name: 'alice',
-    //         pets: ['a'],
-    //       }
-    //     },
-    //     pets: {
-    //       'a': {
-    //         name: 'fluffy',
-    //       },
-    //       'b': {
-    //         name: 'paws',
-    //       }
-    //     }
-    //   },
-    //   ui: {
-    //     currentUser: '1',
-    //   },
-    //   wiki:{
-          
-    //   },
-    //   app:{
-    //         id:''
-    //     }
 }
 const commonExtension=[getSagaExtension(),]
 

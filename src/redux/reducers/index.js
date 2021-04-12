@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import WikiInfoReducer from './wikiInfo';
 import WikiTreeReducer from './fetchTree';
-import reduxAnalyzReducer from './redux_analyz'
+// import reduxAnalyzReducer from './redux_analyz'
 export  * from './app';
 export * from './redux_analyz';
 
@@ -9,7 +9,7 @@ export * from './redux_analyz';
 const wikiReducers=combineReducers({
     'wikiInfo':WikiInfoReducer,
     'catalogTree':WikiTreeReducer,
-    'r_analyz':reduxAnalyzReducer
+    // 'r_analyz':reduxAnalyzReducer
     // 'app':AppState
 
 })

@@ -25,7 +25,9 @@ const devConfig={
             $redux:path.resolve(__dirname,'../src/redux'),
             $service:path.resolve(__dirname,'../src/service'),
             $components:path.resolve(__dirname,'../src/components'),
-            $structure:path.resolve(__dirname,'../src/structure')
+            $structure:path.resolve(__dirname,'../src/structure'),
+            $libs:path.resolve(__dirname,'../src/libs'),
+            $modules:path.resolve(__dirname,'../src/modules')
         },
     },
     devServer:{
