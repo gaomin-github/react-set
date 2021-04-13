@@ -6,7 +6,7 @@ import dagre from 'cytoscape-dagre';
 import EventEmitter from '$libs/eventEmitter'
 import {update_In,update_Out,update_Title} from '$redux/actions';
 import curStore from './store'
-import {selectBackUrl,DropdownNavMenu_Com,selectCurrentSuiteByObjToken} from './DropdownNavMenu';
+import {selectBackUrl,DropdownNavMenu_Com,selectCurrentSuiteByObjToken,ReturnMenu_Com} from './DropdownNavMenu';
 import store from '$redux/store';
 
 
@@ -105,12 +105,13 @@ function createCytoElements(nodes, edges) {
 getStateWith(()=>curStore)
 
 const selectors = {
-  DropdownNavMenu_Com,
-  // selectCurrentSuiteByObjToken
+  // DropdownNavMenu_Com,
+  // selectCurrentSuiteByObjToken,
   // selectBackUrl:DropdownNavMenuSelectors.selectBackUrl,
   //selectQuery,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,
   // DropdownNavMenu_Com,
-  // ReturnMenu_Com,
+  ReturnMenu_Com,
+  // ExploreNavList_Com
   //   ExploreNavList_Com,
   //   ExploreNavList_Com
 }
@@ -134,7 +135,7 @@ EventEmitter.once('redux_analyz_loaded',()=>{
   cy.on('tap','node',(event)=>{
     let selectorName=event.target.id()
     let res=checkSelector(selectorName)
-    // console.log('res',125,res)
+    // console.log('res',125,res.output)
     store.dispatch(update_In(res.inputs))
     store.dispatch(update_Out(res.output))
     store.dispatch(update_Title(res.content))

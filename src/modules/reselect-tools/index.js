@@ -19,6 +19,10 @@ const _isSelector = (selector) => (selector && selector.resultFunc) || _isFuncti
 
 const _addSelector = (selector) => {
   // console.log('21---------name',selector.name,'selectorName',selector.selectorName)
+  if(!(selector.name||selector.selectorName)){
+    let tool_name=addToolName(selector)
+    selector.tool_name=tool_name;
+  }
   _allSelectors.add(selector)
 
   const dependencies = selector.dependencies || []
@@ -56,8 +60,8 @@ export function checkSelector(selector) {
 
     for (const possibleSelector of _allSelectors) {
       // console.log('possibleSelector.selectorName',possibleSelector.selectorName,56)
-      console.log(possibleSelector)
-      if (possibleSelector.selectorName === selector||possibleSelector.name===selector) {
+      // console.log(possibleSelector)
+      if (possibleSelector.selectorName === selector||possibleSelector.name===selector||possibleSelector.tool_name===selector) {
         console.log('get entire Selector')
         selector = possibleSelector
         break
@@ -82,7 +86,7 @@ export function checkSelector(selector) {
 
     // const inputs = dependencies.map((parentSelector) => parentSelector(state))
     const extra = { inputs }
-    extra.content=selector.toString()
+    extra.content=getToolContent(selector)
     try {
       const output = selector(state)
       extra.output = output
@@ -117,17 +121,23 @@ const defaultSelectorKey = (selector) => {
     return selector.name
   }
 
-  return (selector.dependencies || []).reduce((base, dep) => {
-    console.log('base',base,'dep',dep)
-    return base + _sumString(dep)
-  }, (selector.resultFunc ? selector.resultFunc : selector).toString())
+  // return (selector.dependencies || []).reduce((base, dep) => {
+  //   console.log('base',base,'dep',dep)
+  //   return base + _sumString(dep)
+  // }, (selector.resultFunc ? selector.resultFunc : selector).toString())
+
+  if(selector.tool_name){
+    return selector.tool_name
+  }
 }
+
+
 
 export function selectorGraph(selectorKey = defaultSelectorKey) {
   const graph = { nodes: {}, edges: [] }
   const addToGraph = (selector) => {
     const name = selectorKey(selector)
-    console.log('graph.nodes',name,121)
+    // console.log('graph.nodes',name,121)
     if (graph.nodes[name]) return
     const { recomputations, isNamed } = checkSelector(selector)
     // console.log(recomputations,isNamed,124)
@@ -138,20 +148,77 @@ export function selectorGraph(selectorKey = defaultSelectorKey) {
     }
 
     let dependencies = selector.dependencies || []
-    // dependencies.forEach((dependency) => {
-    //   addToGraph(dependency)
-    //   graph.edges.push({ from: name, to: selectorKey(dependency) })
-    // })
+    dependencies.forEach((dependency) => {
+      addToGraph(dependency)
+      graph.edges.push({ from: name, to: selectorKey(dependency) })
+    })
   }
   // console.log('allSelectors',_allSelectors)
   for (let selector of _allSelectors) {
-    console.log('selector.name',selector.name,'selectorName',selector.selectorName,131)
+    // console.log('selector.name',selector.name,'selectorName',selector.selectorName,131)
     // console.log('selector',selector.toString(),132)
 
     addToGraph(selector)
   }
   return graph
 }
+
+const addToolName=(selector)=>{
+  if(selector.selectorName){
+    return selector.selectorName
+  }
+
+  if(selector.name){
+    return selector.name;
+  }
+
+  let tool_name=(selector.dependencies || []).reduce((base, dep) => {
+    // console.log('base',base,'dep',dep)
+    return base + _sumString(dep)
+  }, (selector.resultFunc ? selector.resultFunc : selector).toString())
+  return tool_name;
+
+}
+
+const getToolContent=selector=>{
+
+  if(selector.name){
+    return selector.toString()
+  }
+
+  let str=(selector.dependencies || []).reduce((base, dep) => {
+    // console.log('base',base,'dep',dep)
+    return base
+  }, (selector.resultFunc ? selector.resultFunc : selector).toString())
+  return str;
+
+}
+
+export function addLink(graph,from_s,to_s){
+  graph.edges.push({
+    from:from_s.selectorName,
+    to:to_s.selectorName
+  })
+  return graph;
+}
+
+export function addNode(graph,nodeKey){
+  graph.nodes[nodeKey]={
+    recomputations:0,
+    isNames:true,
+    name:nodeKey
+  }
+}
+
+export function addDataLink(graph,from,tos){
+  graph.edges.push(...tos.map(to=>({
+    from:from,
+    to:to,
+  })))
+  return graph;
+}
+
+
 
 // hack for devtools
 /* istanbul ignore if */

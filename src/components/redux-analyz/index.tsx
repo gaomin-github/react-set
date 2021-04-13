@@ -43,13 +43,13 @@ class ReduxAnalyz extends React.Component<IProp>{
                     <div className="analyz_panel-label">
                       output
                     </div>
-                    {curnode_out?<ReactJson src={curnode_out} name={false} collapsed={true} indentWidth={1}/>:null}
+                    {/* {curnode_out?<ReactJson src={curnode_out} name={false} collapsed={true} indentWidth={1}/>:null} */}
                   </div>
                   <div className="analyz_panel-input">
                     <div className="analyz_panel-label">
                       input
                     </div>
-                    {curnode_in?<ReactJson src={curnode_in} name={false} collapsed={true} indentWidth={1}/>:null}
+                    {/* {curnode_in?<ReactJson src={curnode_in} name={false} collapsed={true} indentWidth={1}/>:null} */}
 
                   </div>
   

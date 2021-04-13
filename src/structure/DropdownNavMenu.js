@@ -37,14 +37,14 @@ const selectRecentObjTokensInBackNav=createSelector(indexes,indexes=>indexes.sel
 
 const selectRecentWikiInBackNav=createSelector(appState,appState=>appState.recentWikiInSuiteBackNav);
 
-// // #ReturnMenu
-const ReturnMenu_Com=createSelector(selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,(a)=>a);
+// #ReturnMenu
+export const ReturnMenu_Com=createSelector(selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,(a)=>a);
 
 
 
 // // const selectRecentWikiInBackNav = createSelector(appState,appState.recentWikiInSuiteBackNav);
 // // #exploreNavList
-// const ExploreNavList_Com=createSelector(selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,data=>data);
+export const ExploreNavList_Com=createSelector(selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,data=>data);
 
 
 

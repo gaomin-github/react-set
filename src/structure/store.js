@@ -2037,7 +2037,7 @@ const curStore={
       collectorEntities: {}
     },
     pc: {
-      backUrlMap: {}
+      backUrlMap: '123urlstring'
     },
     doc: {
       etherpad: {
