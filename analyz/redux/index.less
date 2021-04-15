@@ -1,0 +1,58 @@
+.redux-analyz{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+.analyz_panel{
+    position:absolute;
+    left:0px;
+    top:0px;
+    min-width: 100px;
+    // max-width:300px;
+    max-width:500px;
+    height:100%;
+    background:rgba(200,200,200,0.9);
+    z-index:10;
+    &-title{
+        font-size: 18px;
+        font-weight: 800;       
+        line-height: 42px;;
+
+    }
+    &-label{
+        line-height: 32px;;
+    }
+    &-output{
+
+    }
+}
+
+
+.analyz_slider{
+    position:absolute;
+    width:6px;
+    height:100%;
+    top:0px;
+    background:rgba(255,255,200,0.9);
+    z-index:100;
+}
+
+.analyz_banner{
+    position:absolute;
+    top:0px;
+    right:0px;
+    height:100px;
+    width:60%;
+    background:rgba(200,200,200,0.9);
+    z-index:100;
+    &-data,&-component{
+        display: flex;
+    }
+
+}
+
+#graph{
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.9);
+}
