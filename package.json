@@ -69,6 +69,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "antd": "^3.7.0",
     "cytoscape": "^3.2.3",
     "react-cytoscapejs": "^1.2.1",
     "react-json-view": "^1.21.3",

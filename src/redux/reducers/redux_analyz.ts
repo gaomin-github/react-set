@@ -15,10 +15,33 @@ const Out=handleAction('update_Out',(state,{payload})=>{
 
 const S_title=handleAction('update_title',(state,{payload})=>payload,null)
 
+const selectedName=handleAction('update_SelectedName',(state,{payload})=>payload,null)
+const nodeType=handleAction('update_NodeType',(state,{payload})=>{
+    return payload;
+},'all')
+
+
+const moduleList=handleAction('init_ModuleList',(state,{payload})=>{
+    // console.log('payload',payload)
+    payload=payload||[]
+    payload.push('all')
+    return payload
+
+},[])
+
+const curModuleKey=handleAction('update_ModuleKey',(state,{payload})=>{
+    console.log('payload',payload)
+    return payload;
+},'all')
+
 export const reduxAnalyzReducer=combineReducers({
     In,
     Out,
-    S_title
+    S_title,
+    selectedName,
+    nodeType,
+    moduleList,
+    curModuleKey
 })
 
 

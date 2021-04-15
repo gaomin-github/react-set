@@ -36,6 +36,7 @@ const _addSelector = (selector) => {
 export function registerSelectors(selectors) {
 
   Object.keys(selectors).forEach((name) => {
+    // console.log('name',name,39)
     const selector = selectors[name]
     // console.log('denpendencies',36,selector.dependencies)
     // console.log('name',35,name)
@@ -62,7 +63,7 @@ export function checkSelector(selector) {
       // console.log('possibleSelector.selectorName',possibleSelector.selectorName,56)
       // console.log(possibleSelector)
       if (possibleSelector.selectorName === selector||possibleSelector.name===selector||possibleSelector.tool_name===selector) {
-        console.log('get entire Selector')
+        // console.log('get entire Selector')
         selector = possibleSelector
         break
       }
@@ -133,25 +134,26 @@ const defaultSelectorKey = (selector) => {
 
 
 
-export function selectorGraph(selectorKey = defaultSelectorKey) {
-  const graph = { nodes: {}, edges: [] }
+export function selectorGraph_self(selectorKey = defaultSelectorKey) {
+  const graph = { nodes: {}, edges: [],coms:{},comsEdges:[] }
   const addToGraph = (selector) => {
     const name = selectorKey(selector)
     // console.log('graph.nodes',name,121)
-    if (graph.nodes[name]) return
+    if (graph.nodes[name]||graph.coms[name]) return
     const { recomputations, isNamed } = checkSelector(selector)
-    // console.log(recomputations,isNamed,124)
-    graph.nodes[name] = {
-      recomputations,
-      isNamed,
-      name
-    }
+      graph.nodes[name] = {
+        recomputations,
+        isNamed,
+        name
+      }
 
     let dependencies = selector.dependencies || []
     dependencies.forEach((dependency) => {
-      addToGraph(dependency)
-      graph.edges.push({ from: name, to: selectorKey(dependency) })
+    addToGraph(dependency)
+    graph.edges.push({ from: name, to: selectorKey(dependency) })
     })
+
+    
   }
   // console.log('allSelectors',_allSelectors)
   for (let selector of _allSelectors) {
@@ -162,6 +164,43 @@ export function selectorGraph(selectorKey = defaultSelectorKey) {
   }
   return graph
 }
+
+
+export function selectorGraph(selectorKey = defaultSelectorKey) {
+  const graph = { nodes: {}, edges: [],coms:{},comsEdges:[] }
+  const addToGraph = (selector) => {
+    const name = selectorKey(selector)
+    // console.log('graph.nodes',name,121)
+    if (graph.nodes[name]||graph.coms[name]) return
+    const { recomputations, isNamed } = checkSelector(selector)
+    // console.log(recomputations,isNamed,124)
+    graph.nodes[name] = {
+      recomputations,
+      isNamed,
+      name
+    }
+
+    let dependencies = selector.dependencies || []
+    // console.log('name',name,'len',dependencies.length)
+    dependencies.forEach((dependency) => {
+      addToGraph(dependency)
+      graph.edges.push({ from: name, to: selectorKey(dependency) })
+    })
+
+    
+  }
+  // console.log('allSelectors',_allSelectors)
+  for (let selector of _allSelectors) {
+    // console.log('selector.name',selector.name,'selectorName',selector.selectorName,131)
+    // console.log('selector',selector.toString(),132)
+
+    addToGraph(selector)
+  }
+  return graph
+
+}
+
+
 
 const addToolName=(selector)=>{
   if(selector.selectorName){

@@ -9,13 +9,13 @@ import {createSelector} from 'reselect';
   const indexes=state=>state.indexes;
   
 
-export  const selectBackUrl=createSelector(pc,pc=>pc.backUrlMap)
+const selectBackUrl=createSelector(pc,pc=>pc.backUrlMap)
 
   const selectQuery=createSelector(appState,appState=>appState.route)
 
   const selectCurrentUser=createSelector(appState,appState=>appState.currentUser);
 
-export  const selectCurrentSuiteByObjToken=createSelector(entities,appState,(entities,appState)=>({entities:entities.objs,token:appState.currentNoteToken['obj_token']}));
+const selectCurrentSuiteByObjToken=createSelector(entities,appState,(entities,appState)=>({entities:entities.objs,token:appState.currentNoteToken['obj_token']}));
   
   const selectAppconfigFavoritesHidden=createSelector(appState,appState=>appState.leanModeConfig.favoritesHidden);
 
@@ -26,37 +26,29 @@ export  const selectCurrentSuiteByObjToken=createSelector(entities,appState,(ent
 
 
 const selectBackUrlTest=createSelector(selectBackUrl,selectBackUrl=>`${selectBackUrl}_1`);
-export const DropdownNavMenu_Com=createSelector(selectBackUrlTest,selectBackUrlTest=>`${selectBackUrlTest}_2`);
+export const DropdownNavMenu_com=createSelector(selectBackUrlTest,selectBackUrlTest=>`${selectBackUrlTest}_2`);
 // export const DropdownNavMenu_Com=createSelector(selectBackUrl,selectBackUrl=>`${selectBackUrl}_1`);
-
-
-
-
 
 const selectRecentObjTokensInBackNav=createSelector(indexes,indexes=>indexes.selectRecentObjTokensInBackNav);
 
 const selectRecentWikiInBackNav=createSelector(appState,appState=>appState.recentWikiInSuiteBackNav);
 
 // #ReturnMenu
-export const ReturnMenu_Com=createSelector(selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,(a)=>a);
+// export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,selectRecentWikiInBackNav,a=>{
+//   let p=[...a];
+//   return {
+//     ...p.slice(1,p.length)
+//   }
+// });
+
+export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,a=>{
+  let p=[...a];
+  return {
+    ...p.slice(1,p.length)
+  }
+});
 
 
-
-// // const selectRecentWikiInBackNav = createSelector(appState,appState.recentWikiInSuiteBackNav);
-// // #exploreNavList
-export const ExploreNavList_Com=createSelector(selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,data=>data);
-
-
-
-// const fetchStatusSelector=createSelector(appState,appState=>appState.fetchStatus)
-// const BackNavRecentWikiList_Com=createSelector(fetchStatusSelector,)  
-
-  
-// console.log('DropdownNavMenu_Com',DropdownNavMenu_Com,
-// DropdownNavMenu_Com.dependencies
-// );
-
-
-
+export const GoBackIcon_com=createSelector(DropdownNavMenu_com,()=>null);
 
 
