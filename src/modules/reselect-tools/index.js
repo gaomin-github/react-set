@@ -82,6 +82,7 @@ export function checkSelector(selector) {
 
   const ret = { dependencies, recomputations, isNamed, selectorName }
   if (_getState) {
+    // console.log('_getState',85)
     const state = _getState()
     const inputs = dependencies.map((parentSelector) => parentSelector.toString())
 

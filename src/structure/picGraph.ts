@@ -227,6 +227,7 @@ function paintTypeGraph(){
   // console.log(Object.keys(selectors),227)
   reset()
   registerSelectors(selectors)
+  getStateWith(()=>curStore);
   
   graph=selectorGraph_self()    
   console.log('graph',graph,230)
@@ -250,17 +251,18 @@ function paintTypeGraph(){
   let container=document.getElementById('graph');
   myCy=cytoscape({...cytoDefaults,container,elements})
 
-  // myCy.on('tap','node',event=>{
-  //   let selectedName=event.target.id()
+  myCy.on('tap','node',event=>{
+    let selectedName=event.target.id()
   //   update_SelectedName(selectedName)
   //   selectNode(selectedName);
 
   //   paintTypeGraph()
-  //   // let res=checkSelector(selectorName);
-  //   // store.dispatch(update_In(res.inputs))
-  //   // store.dispatch(update_Out(res.output))
-  //   // store.dispatch(update_Title(res.content))
-  // })
+    let res=checkSelector(selectedName);
+    store.dispatch(update_In(res.inputs))
+    store.dispatch(update_Out(res.output))
+  // console.log('selector.content',res,262)
+    store.dispatch(update_Title(res.content))
+  })
 
 }
 
