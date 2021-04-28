@@ -41,12 +41,18 @@ const selectRecentWikiInBackNav=createSelector(appState,appState=>appState.recen
 //   }
 // });
 
-export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,a=>{
-  let p=[...a];
-  return {
-    ...p.slice(1,p.length)
-  }
+// export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,a=>{
+//   let p=[...a];
+//   return {
+//     ...p.slice(1,p.length)
+//   }
+// });
+export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,selectCurrentUser,selectCurrentSuiteByObjToken,selectAppconfigFavoritesHidden,selectAppconfigWikiHidden,selectRecentObjTokensInBackNav,selectRecentWikiInBackNav,(...params)=>{
+
+  console.log('a',params)
+  return [...params].slice(1,params.length);
 });
+
 
 
 export const GoBackIcon_com=createSelector(DropdownNavMenu_com,()=>null);

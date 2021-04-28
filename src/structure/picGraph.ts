@@ -121,7 +121,9 @@ function createCytoElements(nodes, edges) {
     let node={
       data: Object.assign({}, nodes[name], {
         id: name,
-        label: labelText(name, nodes[name].recomputations)
+        label:name.replace(/_com$/g,'')
+        // label:labelText(name.replace(/_com$/g,''),'')
+        // label: labelText(name, nodes[name].recomputations)
       }),
     }
     if(checkedNodeName[name]){
@@ -210,7 +212,7 @@ function selectNode(selectorName){
 // graph生成元素，绘制到canvas上
 function paintTypeGraph(){
   let moduleKey=curModuleKey(store.getState()),type=nodeType(store.getState());
-  console.log('moduleKey',moduleKey)
+  // console.log('moduleKey',moduleKey)
   let selectors={};
   if(moduleKey==='all'){
     Object.keys(allSelectors).map(key=>{
@@ -223,14 +225,14 @@ function paintTypeGraph(){
     let curSelectors=allSelectors[moduleKey]
     selectors={...curSelectors}
   }
-  console.log('selectors',selectors,220)
+  // console.log('selectors',selectors,220)
   // console.log(Object.keys(selectors),227)
   reset()
   registerSelectors(selectors)
   getStateWith(()=>curStore);
   
   graph=selectorGraph_self()    
-  console.log('graph',graph,230)
+  // console.log('graph',graph,230)
   let curNodes={},curEdges=[];
   if(type==='component'){
     Object.keys(graph.nodes).map(nodeName=>{
@@ -245,7 +247,7 @@ function paintTypeGraph(){
     curEdges=graph.edges;
   }
   
-
+  console.log('curNodes',curNodes,248)
   let elements=createCytoElements(curNodes,curEdges);
   // console.log('elements',elements,197)
   let container=document.getElementById('graph');

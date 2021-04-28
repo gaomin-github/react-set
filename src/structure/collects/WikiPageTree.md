@@ -80,6 +80,7 @@ action:fetchChildren
 监听mouseEnter，更新hoverId
 重命名节点，处理节点名称重命名；输入框失焦，新节点名称同步接口
 节点重命名，action：actionTypes.UPDATE_TITLE触发，并接收协同信息
+wiki协同处理：src/business/wiki/redux/actions/syncPageTreeV2.ts
 
 7.SubMenu/WikiNodeSubMenu
 前置数据
@@ -100,6 +101,7 @@ selectPermissions
 交互：
 面板可见时，触发action:actionTypes.permission.FETCH_USER_PERMISSION_ON_SUITE,获取用户在当前suite权限信息
 新增触发action:actionTypes.WIKI_PAGE_TREE_CREATE_WIKI;服务端请求创建成功，toast反馈
+
 重命名触发action:actionTypes.WIKI_SET_RENAME_NODE
 
 8.PermissionRequest组件
@@ -107,5 +109,13 @@ selectPermissions
 前置条件：
 selectPermRequestConfig
 selectHasSpaceInfo
+
+数据初始化：
+发请求获取权限信息 （fetchAreaAdmins)
+
+交互：
+1）点击权限申请，发请求 applyForWikiSpacePermission；弹出toast提示；
+
+
 
 

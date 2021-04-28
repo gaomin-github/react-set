@@ -139,8 +139,10 @@ SuiteConfigEntry和FolderConfigEntry各自对应业务？
 MOreMenu组件
 读取wikiconfig配置信息，封装后。按照配置展示面板
 
-22.CommentHistory
-wiki/doc中有两个评论功能。moreMenu中的是commentHistory，展示用户自己已解决的历史评论记录
+22.CommentHistory（wiki doc右侧评论区）
+引入位置：src/pc/components/navigationbar/SuiteNavbar/SuiteNavbar.tsx
+
+wiki/doc中有两个评论功能。moreMenu中的是commentHistory，展示已解决的历史评论记录
 doc右侧有评论按钮，右侧可以展示当前文档的所有评论信息
 
 初始化：监听评论信息触发'commentDataChangeRemote'（使用commentSdk）
@@ -154,7 +156,7 @@ doc右侧有评论按钮，右侧可以展示当前文档的所有评论信息
 24.SearchNote组件：SearchBox+SearchList
 数据初始化：
 1）获取搜索历史。actionTypes.search.FETCH_SEARCH_HISTORY
-2）获取最近浏览记录
+2）获取最近浏览记录:[actionTypes.search.FETCH_RECENT_WIKI,actionTypes.search.FETCH_REFINE_SEARCH]
 
 事件初始化
 1）监听keydown，快捷方式调起搜索功能
@@ -162,9 +164,11 @@ doc右侧有评论按钮，右侧可以展示当前文档的所有评论信息
 3）展示搜索历史和最近浏览信息
 
 交互：
+actionTypes.search.FETCH_SEARCH_WIKI
+<!-- 
 只在wiki中搜索：actionTypes.search.FETCH_RECENT_WIKI
 在文件中搜索：actionTypes.search.FETCH_REFINE_SEARCH
-其它情况：actionTypes.search.FETCH_RECENT_IN_SEARCH_BOX
+其它情况：actionTypes.search.FETCH_RECENT_IN_SEARCH_BOX -->
 
 25.Notification（仅单品用户展示/单品模式下展示）
 
@@ -270,7 +274,7 @@ fetchUserEditable：接口请求，初始化：wiki.permission.editable
 wikiDetail:
 数据初始化：更新wiki.spaces
 首次进入，更新wiki.wikiInfos
-
+获取树信息时，聚合接口，也提供了【知识库，权限，角色，树节点】等的信息
 
 
 
