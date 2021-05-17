@@ -216,6 +216,8 @@ const addToolName=(selector)=>{
     // console.log('base',base,'dep',dep)
     return base + _sumString(dep)
   }, (selector.resultFunc ? selector.resultFunc : selector).toString())
+
+  // console.log('tool_name',tool_name)
   return tool_name;
 
 }

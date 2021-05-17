@@ -109,17 +109,20 @@ class ReduxAnalyz extends PureComponent<IProp&IDispatchProps,stateProps>{
             <div className="redux-analyz">
                 <div className="analyz_panel" style={{width:`${this.state.sliderXPosition}px`}}>
                   <div className="analyz_panel-title">
+                    <div className="analyz_panel-label">
+                      title
+                    </div>
                     {curnode_content&&curnode_content.toString().substring(0,100)}
                   </div>
                   <div className="analyz_panel-output">
                     <div className="analyz_panel-label">
-                      output
+                      input
                     </div>
-                    {curnode_out?(typeof curnode_out==='object')?<ReactJson src={curnode_out} name={false} collapsed={true} indentWidth={1}/>:curnode_out:null}
+                    {curnode_in?(typeof curnode_in==='object')?<ReactJson src={curnode_in} name={false} collapsed={true} indentWidth={1}/>:curnode_in:null}
                     </div>
                   <div className="analyz_panel-input">
                     <div className="analyz_panel-label">
-                      input
+                    output
                     </div>
                     {curnode_out?(typeof curnode_out==='object')?<ReactJson src={curnode_out} name={false} collapsed={true} indentWidth={1}/>:curnode_out:null}
 

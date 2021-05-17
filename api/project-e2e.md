@@ -29,3 +29,26 @@ addition:hover不展示收藏。
     err: TypeError: operationPopup.$ is not a function
     at Object.linkDoc (test/wiki/utils/helper/treeHelper.js:107:40)
     at async Context.<anonymous> (test/wiki/wiki_details/tree/tree.spec.js:75:7)
+
+    4-29集中报错
+
+/Users/bytedance/pj/e2e/bear-web/test/wiki/permission/diy_permission.spec.js
+*本地复现
+/Users/bytedance/pj/e2e/bear-web/test/wiki/doc_integrate_wiki/add-to-wiki.spec.js
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_details/additional.spec.js
+*本地复现
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_details/edit.spec.js
+
+*问题：1.0首页做了改版（1.0回根据开关显示这个和旧的，2.0之前产品说显示旧的）
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_home/banner.spec.js
+
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_space_home/search.spec.js
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_details/primary_paths.spec.js
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_details/favorites.spec.js
+/Users/bytedance/pj/e2e/bear-web/test/wiki/wiki_space_setting/member.spec.js
+
+4-29集中报错2
+/Users/bytedance/pj/e2e/bear-web-e2e/test/wiki/wiki_details/additional.spec.js
+/Users/bytedance/pj/e2e/bear-web-e2e/test/wiki/doc_integrate_wiki/add-to-wiki.spec.js
+/Users/bytedance/pj/e2e/bear-web-e2e/test/wiki/wiki_details/edit.spec.js
+/Users/bytedance/pj/e2e/bear-web-e2e/test/wiki/wiki_details/tree/tree.spec.js
