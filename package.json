@@ -4,6 +4,7 @@
   "description": "imitate bear-web test",
   "main": "indexjs",
   "scripts": {
+    "jest": "jest",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start1": "node ./bin/start.js",
     "start": "webpack-dev-server --config config/webpack.dev.config.js",
@@ -32,7 +33,7 @@
     "faker": "3.1.0",
     "fs": "0.0.1-security",
     "html-webpack-plugin": "^4.0.0-alpha",
-    "jest": "24.8.0",
+    "jest": "^26.6.3",
     "jest-cli": "24.8.0",
     "jest-dom": "2.1.0",
     "jest-environment-jsdom": "24.8.0",
@@ -69,8 +70,11 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@types/jest": "^26.0.23",
     "antd": "^3.7.0",
     "cytoscape": "^3.2.3",
+    "mocha": "^8.4.0",
     "react-cytoscapejs": "^1.2.1",
     "react-json-view": "^1.21.3",
     "regenerator-runtime": "^0.11.1",

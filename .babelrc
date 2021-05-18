@@ -28,6 +28,9 @@
       },
       "production": {
         "plugins": ["lodash", "transform-react-remove-prop-types"]
+      },
+      "test":{
+        "plugins": ["@babel/plugin-transform-runtime"]
       }
     }
   }

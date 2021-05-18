@@ -369,7 +369,7 @@ function selectNode(cy,graph){
 }
 
 // 通过dependencies得到所有子节点 selectedName
-function getChildNodes(selectors,curName){
+export function getChildNodes(selectors,curName){
   let childSelectors=[curName];
   let sIndex=0;
 
@@ -379,10 +379,10 @@ function getChildNodes(selectors,curName){
     Object.keys(selectors).map(sName=>{
       let s=selectors[sName]
       let isChildIndex=s.dependencies&&s.dependencies.findIndex(sd=>{
-        return sd.selectedName===curSName
+        return sd===curSName
       })
       if(isChildIndex>=0){
-        childSelectors.push(s.selectedName)
+        childSelectors.push(sName)
       }
     })
   }
