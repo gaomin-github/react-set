@@ -19,10 +19,10 @@ const _isSelector = (selector) => (selector && selector.resultFunc) || _isFuncti
 
 const _addSelector = (selector) => {
   // console.log('21---------name',selector.name,'selectorName',selector.selectorName)
-  if(!(selector.name||selector.selectorName)){
-    let tool_name=addToolName(selector)
-    selector.tool_name=tool_name;
-  }
+  // if(!(selector.name||selector.selectorName)){
+  //   let tool_name=addToolName(selector)
+  //   selector.tool_name=tool_name;
+  // }
   _allSelectors.add(selector)
 
   const dependencies = selector.dependencies || []
@@ -84,9 +84,9 @@ export function checkSelector(selector) {
   if (_getState) {
     // console.log('_getState',85)
     const state = _getState()
-    const inputs = dependencies.map((parentSelector) => parentSelector.toString())
+    // const inputs = dependencies.map((parentSelector) => parentSelector.toString())
 
-    // const inputs = dependencies.map((parentSelector) => parentSelector(state))
+    const inputs = dependencies.map((parentSelector) => parentSelector(state))
     const extra = { inputs }
     extra.content=getToolContent(selector)
     try {
@@ -149,6 +149,7 @@ export function selectorGraph_self(selectorKey = defaultSelectorKey) {
       }
 
     let dependencies = selector.dependencies || []
+    // console.log('name',name,'dependencies',dependencies)
     dependencies.forEach((dependency) => {
     addToGraph(dependency)
     graph.edges.push({ from: name, to: selectorKey(dependency) })

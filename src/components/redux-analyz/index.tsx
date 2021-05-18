@@ -18,7 +18,7 @@ const moduleList=createSelector(r_analyz,data=>{
   return moduleList&&(moduleList instanceof Array)?moduleList:[]
 })
 const curModuleKey=createSelector(r_analyz,data=>data.curModuleKey)
-
+const curNodeRefer=createSelector(r_analyz,data=>data.curNodeRefer)
 
 const RadioGroup=Radio.Group;
 interface IProp{
@@ -27,7 +27,8 @@ interface IProp{
     curnode_content:typeof curnode_content,
     nodeType:typeof nodeType,
     moduleList: string[],
-    curModuleKey:typeof curModuleKey
+    curModuleKey:typeof curModuleKey,
+    curNodeRefer:string[]
 }
 interface IDispatchProps{
   update_NodeType:typeof update_NodeType,
@@ -101,9 +102,10 @@ class ReduxAnalyz extends PureComponent<IProp&IDispatchProps,stateProps>{
 
 
     render(){
-      const {curnode_in,curnode_out,curnode_content,nodeType,moduleList,curModuleKey}=this.props;
+      const {curnode_in,curnode_out,curnode_content,nodeType,moduleList,curModuleKey,curNodeRefer}=this.props;
+
       // console.log(curnode_content,'curnode_content');
-      // console.log(moduleList,'moduleList--------90');
+      console.log(curNodeRefer,'curNodeRefer--------90');
         const typeChoices=['component','state','all']
         return (
             <div className="redux-analyz">
@@ -126,6 +128,16 @@ class ReduxAnalyz extends PureComponent<IProp&IDispatchProps,stateProps>{
                     </div>
                     {curnode_out?(typeof curnode_out==='object')?<ReactJson src={curnode_out} name={false} collapsed={true} indentWidth={1}/>:curnode_out:null}
 
+                  </div>
+                  <div className="analyz_panel-refer">
+                    <div className="analyz_panel-label">
+                      引用组件<b>({curNodeRefer&&curNodeRefer.length||0}):</b>
+                    </div>
+                    <div className="refer_list">
+                      {curNodeRefer?curNodeRefer.map((refer,index)=>{
+                        return <div key={refer} className="refer_list-item">{refer}</div>
+                      }):null}
+                    </div>
                   </div>
   
                 </div>
@@ -186,5 +198,6 @@ export default connect((state)=>({
   curnode_content:curnode_content(state),
   nodeType:nodeType(state),
   moduleList:moduleList(state),
-  curModuleKey:curModuleKey(state)
+  curModuleKey:curModuleKey(state),
+  curNodeRefer:curNodeRefer(state)
 }),{update_NodeType,update_ModuleKey})(ReduxAnalyz)

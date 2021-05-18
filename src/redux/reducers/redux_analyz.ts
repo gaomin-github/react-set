@@ -15,6 +15,8 @@ const Out=handleAction('update_Out',(state,{payload})=>{
 
 const S_title=handleAction('update_title',(state,{payload})=>payload,null)
 
+const curNodeRefer=handleAction('update_NodeRefer',(state,{payload})=>payload,[])
+
 const selectedName=handleAction('update_SelectedName',(state,{payload})=>payload,null)
 const nodeType=handleAction('update_NodeType',(state,{payload})=>{
     return payload;
@@ -38,6 +40,7 @@ export const reduxAnalyzReducer=combineReducers({
     In,
     Out,
     S_title,
+    curNodeRefer,
     selectedName,
     nodeType,
     moduleList,

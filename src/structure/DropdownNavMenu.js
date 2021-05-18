@@ -52,7 +52,7 @@ export const ReturnMenu_com=createSelector(DropdownNavMenu_com,selectBackUrl,sel
 });
 
 
-
-export const GoBackIcon_com=createSelector(DropdownNavMenu_com,()=>null);
+export const GoBackIcon_com_overall=createSelector(DropdownNavMenu_com,()=>null)
+export const GoBackIcon_com=createSelector(GoBackIcon_com_overall,()=>null);
 
 

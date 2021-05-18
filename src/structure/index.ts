@@ -1,7 +1,10 @@
-import * as dropdown_selectors from './DropdownNavMenu';
-import * as switchspace_selectors from './SwitchSpace';
+// import * as dropdown_selectors from './DropdownNavMenu';
+// import * as switchspace_selectors from './SwitchSpace';
 
-export default {
-    dropdown_selectors,
-    switchspace_selectors
-}
+// export default {
+//     // dropdown_selectors,
+//     switchspace_selectors
+// }
+
+export * from './DropdownNavMenu';
+export * from './SwitchSpace';

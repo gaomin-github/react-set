@@ -5,19 +5,17 @@ import {createSelector} from 'reselect';
 import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import EventEmitter from '$libs/eventEmitter'
-import {update_In,update_Out,update_Title,update_SelectedName,init_ModuleList} from '$redux/actions';
+import {update_In,update_Out,update_Title,update_Refer,update_SelectedName,init_ModuleList} from '$redux/actions';
 import curStore from './store'
 // import * as DropdownNavMenu_selectors from './DropdownNavMenu';
-import allSelectors from './index';
+import * as allSelectors from './index';
 import store from '$redux/store';
-import { Children } from 'react';
 
-let allSelectorKeys=Object.keys(allSelectors)
-store.dispatch(init_ModuleList(allSelectorKeys))
+// let allSelectorKeys=Object.keys(allSelectors)
+store.dispatch(init_ModuleList(['SwitchSpace_com','Menu_com']))
 
 const r_analyz=state=>state.r_analyz
 const nodeType=createSelector(r_analyz,data=>data.nodeType);
-
 const curModuleKey=createSelector(r_analyz,data=>data.curModuleKey)
 
 /* eslint-disable */
@@ -41,17 +39,12 @@ const colors = {
   defaultNodeLabel: 'rgb(111, 179, 210)',
   defaultNode: 'rgb(232, 234, 246)',
   selectedNode: 'orange',
+  lockedNode:'rgb(188,188,188)',
   dependency: '#ffeb3b',
   dependent: '#f868d0',
   recomputed: 'red',
   comLineColor:'rgb(55,155,210)'
 };
-
-
-const selectedNodeStyle = {
-  'background-color': colors.selectedNode
-};
-
 
 const Y_SPACING = 0.1;
 
@@ -73,18 +66,12 @@ const cytoDefaults = {
       selector:"edge[class='comedge']",
       style:{
         'line-style':'solid',
-        // 'line-color':colors.comLineColor,
-        // 'target-arrow-color': colors.comLineColor,
-
       }
     },
     {
       selector:"edge[class='selected_edge']",
       style:{
         'line-style':'solid',
-        // 'line-color':'red',
-        // 'target-arrow-color': 'red',
-
       }
     },
     {
@@ -93,6 +80,14 @@ const cytoDefaults = {
         label: 'data(label)',
         color: colors.defaultNodeLabel,
         'background-color': colors.defaultNode,
+      }
+    },
+    {
+      selector: "node[class='locked']",
+      style:  {
+        label: 'data(label)',
+        color: colors.lockedNode,
+        'background-color': colors.lockedNode,
       }
     },
     {
@@ -141,7 +136,14 @@ const cytoDefaults = {
   }
 };
 
-let childSelectors=[],parentSelectors=[],childComs=[],parentComs=[],selectedName;
+let childSelectors=[],
+    parentSelectors=[],
+    childComs=[],
+    parentComs=[],
+    selectedName,
+    checkedNodeName={},
+    myCy=null;
+
 
 function createCytoElements(nodes, edges) {
   // console.log('selectedName',selectedName,)
@@ -149,101 +151,77 @@ function createCytoElements(nodes, edges) {
   // console.log('childSelectors',childSelectors,)
 
   let cytoNodes = Object.keys(nodes).map(name => {
-    let nodeClassName='';
-    // if(name===selectedName){
-    //   nodeClassName='selectedNode'
-    // }else if(parentComs.includes(name)){
-    //   nodeClassName='pnode'
-    // }else if(childComs.includes(name)){
-    //   nodeClassName='cnode'
-    // }
-    // console.log('selector',name,'nodeClassName',nodeClassName)
     let node={
       data: Object.assign({}, nodes[name], {
         id: name,
         label:name.replace(/_com$/g,''),
-        class:nodeClassName
+        class:name.endsWith('_overall')?'locked':''
       }),
     }
     return node;
   } );
+
   let cytoEdges = edges.map((edge, i) => {
     let className='';
     if(checkedNodeName[edge.from]&&checkedNodeName[edge.to]) {
       className='selected_edge'
-    }else if(edge.from.endsWith('_com')&&edge.to.endsWith('_com')) className='comedge';
-    return {
-      data:{
-        source:edge.from,
-        target:edge.to,
-        id:i,
-        class:className
+    }else if((!edge.from||edge.from.endsWith('_com'))&&(!edge.to||edge.to.endsWith('_com')))  className='comedge';
+      return {
+        data:{
+          source:edge.from,
+          target:edge.to,
+          id:i,
+          class:className
+        }
       }
-    }
     })
   return cytoNodes.concat(cytoEdges);
 }
 
 
-let graph
-// console.log('graph',graph)
 // 监听redux-analyz是否加载
 EventEmitter.once('redux_analyz_loaded',()=>{
   getStateWith(()=>curStore)
-
   paintTypeGraph()
 })
 
 EventEmitter.on('redux_analyz_update',()=>{
-  console.log('redux_analyz_update executed')
+  // console.log('redux_analyz_update executed')
   paintTypeGraph();
 })
 
-// console.log('graph',graph,172)
-let myCy;
-
-let checkedNodeName={}
-
-// 注册被选中节点关联节点
-// function selectNode(selectorName){
-//   checkedNodeName=[];
-//   let curNextNodes=[selectorName]
-//   while(curNextNodes&&curNextNodes.length){
-//     let curNextNode=curNextNodes.shift();
-//     checkedNodeName[curNextNode]=true
-//     graph.edges.map(edge=>{
-//       if(edge.to===curNextNode) curNextNodes.push(edge.from);
-//     })
-//   }
-//   // curNextNodes=Array.from(new Set(curNextNodes));
-//   // console.log('checkedNodeName----',checkedNodeName)
-// }
 
 // graph生成元素，绘制到canvas上
+let graph
 function paintTypeGraph(){
   let moduleKey=curModuleKey(store.getState()),type=nodeType(store.getState());
-  // console.log('moduleKey',moduleKey)
-  let selectors={};
-  if(moduleKey==='all'){
-    Object.keys(allSelectors).map(key=>{
-      let curSelectorList=allSelectors[key];
-      Object.keys(curSelectorList).map(selectorKey=>{
-        selectors[selectorKey]=curSelectorList[selectorKey]
-      })
-    })
-  }else{
-    let curSelectors=allSelectors[moduleKey]
-    selectors={...curSelectors}
-  }
-  // console.log('selectors',selectors,220)
+  console.log('moduleKey',moduleKey)
+
+  // let selectors={};
+  // if(moduleKey==='all'){
+  //   Object.keys(allSelectors).map(key=>{
+  //     let curSelectorList=allSelectors[key];
+  //     Object.keys(curSelectorList).map(selectorKey=>{
+  //       selectors[selectorKey]=curSelectorList[selectorKey]
+  //     })
+  //   })
+  // }else{
+  //   let curSelectors=allSelectors[moduleKey]
+  //   selectors={...curSelectors}
+  // }
+
+  // console.log('allSelectors',allSelectors,220)
   // console.log(Object.keys(selectors),227)
-  reset()
-  registerSelectors(selectors)
+  // reset()
+  registerSelectors(allSelectors)
+  // console.log('allSelectors---223',{...allSelectors})
   getStateWith(()=>curStore);
   
   graph=selectorGraph_self()    
   // console.log('graph',graph,230)
   let curNodes={},curEdges=[];
+
+  // 是否只展示组件过滤
   if(type==='component'){
     Object.keys(graph.nodes).map(nodeName=>{
       if(nodeName.endsWith('_com')) curNodes[nodeName]=graph.nodes[nodeName];
@@ -257,28 +235,45 @@ function paintTypeGraph(){
     curEdges=graph.edges;
   }
   
+  // 展示选中组件
+  if(moduleKey&&moduleKey!=='all'){
+    let childSKeys=getChildNodes(allSelectors,moduleKey);
+    console.log('childSKeys',childSKeys)
+    Object.keys(curNodes).map(nodeName=>{
+      if(!childSKeys.includes(nodeName)){
+        delete curNodes[nodeName]
+      }
+    })
+
+    curEdges=curEdges.filter(edge=>{
+      if(edge.from&&!childSKeys.includes(edge.from)) return false;
+      if(edge.to&&!childSKeys.includes(edge.to)) return false;
+    })
+  }
+
+  console.log('curNodes',curNodes)
+  console.log('curEdges',curEdges)
+
   let elements=createCytoElements(curNodes,curEdges);
-  console.log('elements',elements,197)
   let container=document.getElementById('graph');
   myCy=cytoscape({...cytoDefaults,container,elements})
 
-  myCy.on('tap','node',event=>{
-    selectedName=event.target.id()
+  // myCy.on('tap','node',event=>{
+  //   selectedName=event.target.id()
 
-    let res=checkSelector(selectedName);
+  //   let res=checkSelector(selectedName);
+  //   store.dispatch(update_In(res.inputs))
+  //   store.dispatch(update_Out(res.output))
+  //   store.dispatch(update_Title(res.content))
 
-    store.dispatch(update_In(res.inputs))
-    store.dispatch(update_Out(res.output))
-    store.dispatch(update_Title(res.content))
-
-    // 高亮graph
-    selectNode(myCy,graph);
-    myCy.nodes(`[id="${selectedName}"]`).style({
-      'background-color': 'rgba(210,20,20,1)'
-    })
-    // paintTypeGraph()
-    // cytoscape({...cytoDefaults,container,elements})
-  })
+  //   if(selectedName.endsWith('_overall')) return;
+  //   // 高亮graph
+  //   selectNode(myCy,graph);
+  //   store.dispatch(update_Refer(childComs))
+  //   myCy.nodes(`[id="${selectedName}"]`).style({
+  //     'background-color': 'rgba(210,20,20,1)'
+  //   })
+  // })
 
 }
 
@@ -295,6 +290,7 @@ function selectNode(cy,graph){
       if(edge.from.endsWith('_com')){
         // childComs[edge.from]=true
         childComs.push(edge.from)
+        childComs=Array.from(new Set(childComs))
         return;
       }
       if(edge.from){
@@ -325,6 +321,8 @@ function selectNode(cy,graph){
     })
   }
   parentSelectors.shift()
+  // 清空历史选中样式
+  // cy.style(cytoDefaults).update();
   // 修改关联节点样式
   Object.keys(graph.nodes).map(nodeKey=>{
     if(parentComs.includes(nodeKey)){
@@ -352,27 +350,51 @@ function selectNode(cy,graph){
         'line-color':colors.parentEdge,
         'target-arrow-color': colors.parentEdge,
       })
-    }else if(cS.includes(edge.to)&&cS.includes(edge.from)){
-      console.log('edge.from',edge.from,'to',edge.to)
+      return;
+    }
+    if(cS.includes(edge.to)&&cS.includes(edge.from)){
+      // console.log('edge.from',edge.from,'to',edge.to)
       cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
         'line-color':colors.childEdge,
         'target-arrow-color': colors.childEdge,
       })
-    }else{
-      cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
-        'line-color':colors.defaultEdge,
-        'target-arrow-color': colors.defaultEdge,
-      })
+      return;
     }
+    //清理历史设置样式
+    cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
+      'line-color':colors.defaultEdge,
+      'target-arrow-color': colors.defaultEdge,
+    })
   })
-
-
-  
-
-  // console.log('childComs',childComs);
-  // console.log('parentSelectors',parentSelectors);
-  // console.log('parentComs',parentComs);
 }
+
+// 通过dependencies得到所有子节点 selectedName
+function getChildNodes(selectors,curName){
+  let childSelectors=[curName];
+  let sIndex=0;
+
+  while(sIndex<childSelectors.length){
+    let curSName=childSelectors[sIndex];
+    sIndex++
+    Object.keys(selectors).map(sName=>{
+      let s=selectors[sName]
+      let isChildIndex=s.dependencies&&s.dependencies.findIndex(sd=>{
+        return sd.selectedName===curSName
+      })
+      if(isChildIndex>=0){
+        childSelectors.push(s.selectedName)
+      }
+    })
+  }
+  childSelectors.shift()
+  return childSelectors
+}
+
+function getParentNodes(selectors,curName){
+
+}
+
+
 
 
 

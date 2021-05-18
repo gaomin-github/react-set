@@ -15,6 +15,11 @@ export const update_Title=payload=>({
     payload
 })
 
+export const update_Refer=payload=>({
+    type:'update_NodeRefer',
+    payload
+})
+
 export const update_SelectedName=payload=>({
     type:'update_SelectedName',
     payload
@@ -24,6 +29,7 @@ export const update_NodeType=payload=>({
     type:'update_NodeType',
     payload
 })
+
 
 export const init_ModuleList=payload=>({
     type:'init_ModuleList',
