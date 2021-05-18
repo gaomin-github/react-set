@@ -34,7 +34,10 @@ const labelText = (id, recomputations) => truncateText(id) + (recomputations ===
 
 
 const colors = {
-  defaultEdge: 'rgb(79, 90, 101)',
+  // defaultEdge: 'rgb(79, 90, 101)',
+  childEdge:'rgb(79, 90, 101)',
+  parentEdge:'orange',
+  defaultEdge:'rgb(133,133,133)',
   defaultNodeLabel: 'rgb(111, 179, 210)',
   defaultNode: 'rgb(232, 234, 246)',
   selectedNode: 'orange',
@@ -70,8 +73,8 @@ const cytoDefaults = {
       selector:"edge[class='comedge']",
       style:{
         'line-style':'solid',
-        'line-color':colors.comLineColor,
-        'target-arrow-color': colors.comLineColor,
+        // 'line-color':colors.comLineColor,
+        // 'target-arrow-color': colors.comLineColor,
 
       }
     },
@@ -79,8 +82,8 @@ const cytoDefaults = {
       selector:"edge[class='selected_edge']",
       style:{
         'line-style':'solid',
-        'line-color':'red',
-        'target-arrow-color': 'red',
+        // 'line-color':'red',
+        // 'target-arrow-color': 'red',
 
       }
     },
@@ -282,7 +285,7 @@ function paintTypeGraph(){
 function selectNode(cy,graph){
   // selectedName=selectedName;
   childSelectors=[selectedName],childComs=[];
-
+  // 收集关联子节点集合
   let sIndex=0;
   while(sIndex<childSelectors.length){
     let curS=childSelectors[sIndex];
@@ -302,7 +305,7 @@ function selectNode(cy,graph){
     })
   }
   childSelectors.shift()
-
+  // 收集关联父节点
   parentSelectors=[selectedName]
   let eIndex=0;
   while(eIndex<parentSelectors.length){
@@ -322,6 +325,7 @@ function selectNode(cy,graph){
     })
   }
   parentSelectors.shift()
+  // 修改关联节点样式
   Object.keys(graph.nodes).map(nodeKey=>{
     if(parentComs.includes(nodeKey)){
       cy.nodes(`[id="${nodeKey}"]`).style({
@@ -340,19 +344,24 @@ function selectNode(cy,graph){
       'background-color': colors.defaultNode
     })
   })
-  console.log('cy.edges------343',cy.edges)
-  // parentSelectors.map()
-  let pS=[...parentSelectors,...parentComs],cS=[...childSelectors,...childSelectors]
+  // 修改关联边样式
+  let pS=[selectedName,...parentSelectors,...parentComs],cS=[selectedName,...childSelectors,...childComs]
   graph.edges.map(edge=>{
     if(pS.includes(edge.to)&&pS.includes(edge.from)){
-      cy.edges(`[source="${edge.from}" target="${edge.to}"]`).style({
-        'line-color':'orange',
-        'target-arrow-color': 'orange',
+      cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
+        'line-color':colors.parentEdge,
+        'target-arrow-color': colors.parentEdge,
       })
     }else if(cS.includes(edge.to)&&cS.includes(edge.from)){
-      cy.edges(`[source="${edge.from}" target="${edge.to}"]`).style({
-        'line-color':'rgba(50,160,240,1)',
-        'target-arrow-color': 'rgba(50,160,240,1)',
+      console.log('edge.from',edge.from,'to',edge.to)
+      cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
+        'line-color':colors.childEdge,
+        'target-arrow-color': colors.childEdge,
+      })
+    }else{
+      cy.edges(`[source="${edge.from}"][target="${edge.to}"]`).style({
+        'line-color':colors.defaultEdge,
+        'target-arrow-color': colors.defaultEdge,
       })
     }
   })
