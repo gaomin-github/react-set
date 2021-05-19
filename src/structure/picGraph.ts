@@ -12,7 +12,7 @@ import * as allSelectors from './index';
 import store from '$redux/store';
 
 // let allSelectorKeys=Object.keys(allSelectors)
-store.dispatch(init_ModuleList(['SwitchSpace_com','Menu_com']))
+store.dispatch(init_ModuleList(['appState','allSpaces','SwitchSpace_com','DropdownNavMenu_com']))
 
 const r_analyz=state=>state.r_analyz
 const nodeType=createSelector(r_analyz,data=>data.nodeType);
@@ -136,20 +136,7 @@ const cytoDefaults = {
   }
 };
 
-let childSelectors=[],
-    parentSelectors=[],
-    childComs=[],
-    parentComs=[],
-    selectedName,
-    checkedNodeName={},
-    myCy=null;
-
-
 function createCytoElements(nodes, edges) {
-  // console.log('selectedName',selectedName,)
-  //   console.log('parentSelectors',parentSelectors,)
-  // console.log('childSelectors',childSelectors,)
-
   let cytoNodes = Object.keys(nodes).map(name => {
     let node={
       data: Object.assign({}, nodes[name], {
@@ -163,18 +150,17 @@ function createCytoElements(nodes, edges) {
 
   let cytoEdges = edges.map((edge, i) => {
     let className='';
-    if(checkedNodeName[edge.from]&&checkedNodeName[edge.to]) {
-      className='selected_edge'
-    }else if((!edge.from||edge.from.endsWith('_com'))&&(!edge.to||edge.to.endsWith('_com')))  className='comedge';
-      return {
-        data:{
-          source:edge.from,
-          target:edge.to,
-          id:i,
-          class:className
-        }
+    if((!edge.from||edge.from.endsWith('_com'))&&(!edge.to||edge.to.endsWith('_com')))  className='comedge';
+    return {
+      data:{
+        source:edge.from,
+        target:edge.to,
+        id:i,
+        class:className
       }
-    })
+    }
+  })
+
   return cytoNodes.concat(cytoEdges);
 }
 
@@ -214,7 +200,7 @@ function paintTypeGraph(){
   // console.log(Object.keys(selectors),227)
   // reset()
   registerSelectors(allSelectors)
-  // console.log('allSelectors---223',{...allSelectors})
+  console.log('allSelectors---223',allSelectors)
   getStateWith(()=>curStore);
   
   graph=selectorGraph_self()    
@@ -238,7 +224,6 @@ function paintTypeGraph(){
   // 展示选中组件
   if(moduleKey&&moduleKey!=='all'){
     let childSKeys=getChildNodes(allSelectors,moduleKey);
-    console.log('childSKeys',childSKeys)
     Object.keys(curNodes).map(nodeName=>{
       if(!childSKeys.includes(nodeName)){
         delete curNodes[nodeName]
@@ -248,38 +233,39 @@ function paintTypeGraph(){
     curEdges=curEdges.filter(edge=>{
       if(edge.from&&!childSKeys.includes(edge.from)) return false;
       if(edge.to&&!childSKeys.includes(edge.to)) return false;
+      return true;
     })
   }
 
-  console.log('curNodes',curNodes)
-  console.log('curEdges',curEdges)
+  // console.log('curNodes',curNodes)
+  // console.log('curEdges',curEdges)
 
   let elements=createCytoElements(curNodes,curEdges);
   let container=document.getElementById('graph');
-  myCy=cytoscape({...cytoDefaults,container,elements})
+  let myCy=cytoscape({...cytoDefaults,container,elements})
 
-  // myCy.on('tap','node',event=>{
-  //   selectedName=event.target.id()
+  myCy.on('tap','node',event=>{
+    let selectedName=event.target.id()
+    let res=checkSelector(selectedName);
+    notifyCurSelectorInfo(res);
 
-  //   let res=checkSelector(selectedName);
-  //   store.dispatch(update_In(res.inputs))
-  //   store.dispatch(update_Out(res.output))
-  //   store.dispatch(update_Title(res.content))
-
-  //   if(selectedName.endsWith('_overall')) return;
-  //   // 高亮graph
-  //   selectNode(myCy,graph);
-  //   store.dispatch(update_Refer(childComs))
-  //   myCy.nodes(`[id="${selectedName}"]`).style({
-  //     'background-color': 'rgba(210,20,20,1)'
-  //   })
-  // })
+    if(selectedName.endsWith('_overall')) return;
+    // 高亮graph
+    emphasize(myCy,graph,selectedName);
+  })
 
 }
+function notifyCurSelectorInfo(res){
+  const {inputs,output,content}=res;
+  store.dispatch(update_In(inputs))
+  store.dispatch(update_Out(output))
+  store.dispatch(update_Title(content))
+}
 
-function selectNode(cy,graph){
+
+function emphasize(cy,graph,selectedName){
   // selectedName=selectedName;
-  childSelectors=[selectedName],childComs=[];
+  let childSelectors=[selectedName],childComs=[];
   // 收集关联子节点集合
   let sIndex=0;
   while(sIndex<childSelectors.length){
@@ -301,8 +287,10 @@ function selectNode(cy,graph){
     })
   }
   childSelectors.shift()
+  store.dispatch(update_Refer(childComs))
+
   // 收集关联父节点
-  parentSelectors=[selectedName]
+  let parentSelectors=[selectedName],parentComs=[]
   let eIndex=0;
   while(eIndex<parentSelectors.length){
     let curS=parentSelectors[eIndex];
@@ -321,8 +309,7 @@ function selectNode(cy,graph){
     })
   }
   parentSelectors.shift()
-  // 清空历史选中样式
-  // cy.style(cytoDefaults).update();
+
   // 修改关联节点样式
   Object.keys(graph.nodes).map(nodeKey=>{
     if(parentComs.includes(nodeKey)){
@@ -337,11 +324,18 @@ function selectNode(cy,graph){
       })
       return;
     }
-    if(selectedName===nodeKey) return;
+    if(selectedName===nodeKey){
+      cy.nodes(`[id="${nodeKey}"]`).style({
+        'background-color': 'rgba(210,20,20,1)'
+      });
+      return;
+    } 
+
     cy.nodes(`[id="${nodeKey}"]`).style({
       'background-color': colors.defaultNode
     })
   })
+
   // 修改关联边样式
   let pS=[selectedName,...parentSelectors,...parentComs],cS=[selectedName,...childSelectors,...childComs]
   graph.edges.map(edge=>{
@@ -378,21 +372,21 @@ export function getChildNodes(selectors,curName){
     sIndex++
     Object.keys(selectors).map(sName=>{
       let s=selectors[sName]
-      let isChildIndex=s.dependencies&&s.dependencies.findIndex(sd=>{
-        return sd===curSName
-      })
-      if(isChildIndex>=0){
-        childSelectors.push(sName)
+      let curDeps=s.dependencies
+      if(curDeps){
+        let isChildIndex=curDeps.findIndex(sd=>{
+          return sd.selectorName===curSName||sd.name===curSName
+        })
+        if(isChildIndex>=0){
+          childSelectors.push(sName)
+          childSelectors=Array.from(new Set(childSelectors))
+        }
       }
     })
   }
-  childSelectors.shift()
   return childSelectors
 }
 
-function getParentNodes(selectors,curName){
-
-}
 
 
 

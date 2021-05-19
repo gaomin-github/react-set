@@ -22,4 +22,4 @@ const mapDispatchToProps={
     fetchWikiCataLogTree,
     fetchAppInfo
 }
-export default connect(mapStateToProps,mapDispatchToProps)(wikiEntry) as React.ComponentClass
+export default connect(mapStateToProps,mapDispatchToProps)(wikiEntry)

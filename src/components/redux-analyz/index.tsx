@@ -74,7 +74,7 @@ class ReduxAnalyz extends PureComponent<IProp&IDispatchProps,stateProps>{
       const {update_ModuleKey}=this.props;
       if(!event.target) return;
       let curVal=event.target.value==='all'?'':event.target.value;
-      console.log('curVal',curVal)
+      // console.log('curVal',curVal)
       update_ModuleKey(curVal);
       EventEmitter.emit('redux_analyz_update',curVal)
 
@@ -105,7 +105,7 @@ class ReduxAnalyz extends PureComponent<IProp&IDispatchProps,stateProps>{
       const {curnode_in,curnode_out,curnode_content,nodeType,moduleList,curModuleKey,curNodeRefer}=this.props;
 
       // console.log(curnode_content,'curnode_content');
-      console.log(curNodeRefer,'curNodeRefer--------90');
+      // console.log(curNodeRefer,'curNodeRefer--------90');
         const typeChoices=['component','state','all']
         return (
             <div className="redux-analyz">
