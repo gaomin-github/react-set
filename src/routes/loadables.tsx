@@ -2,31 +2,36 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-export const WikiEntry=Loadable({
-    // loader:()=>import('$components/wiki-entry/wikiEntry'),
-    loader:()=>import('$components/wiki-entry/index'),
+export const WikiEntry = Loadable({
+  // loader:()=>import('$components/wiki-entry/wikiEntry'),
+  loader: () => import('$components/wiki-entry/index'),
 
-    loading:()=>null,
-    render:loaded=>{
-        
-        const Com=loaded.default;
-        return <Com/>
-    }
-})
+  loading: () => null,
+  render: (loaded) => {
+    const Com = loaded.default;
+    return <Com />;
+  },
+});
 
-export const ReduxAnalyz=Loadable({
-    // loader:()=>import('$components/wiki-entry/wikiEntry'),
-    loader:()=>import('$components/redux-analyz'),
+export const ReduxAnalyz = Loadable({
+  // loader:()=>import('$components/wiki-entry/wikiEntry'),
+  loader: () => import('$components/redux-analyz'),
 
-    loading:()=>null,
-    render:loaded=>{
-        
-        const Com=loaded.default;
-        return <Com/>
-    }
-})
+  loading: () => null,
+  render: (loaded) => {
+    const Com = loaded.default;
+    return <Com />;
+  },
+});
 
-
+export const Demos = Loadable({
+  loader: () => import('$components/demos/funAndClass'),
+  loading: () => null,
+  render: (loaded) => {
+    const Com = loaded.default;
+    return <Com />;
+  },
+});
 // export const DocEntry=Loadable({
 //     loader:()=>import('$components/doc-entry'),
 //     loading:()=>null,
@@ -36,8 +41,8 @@ export const ReduxAnalyz=Loadable({
 //     }
 // })
 
-export default{
-    WikiEntry,
-    ReduxAnalyz
-}
-
+export default {
+  WikiEntry,
+  ReduxAnalyz,
+  Demos,
+};

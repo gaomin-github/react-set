@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // import {createContext} from 'react';//
-import Loadables  from './loadables';
+import Loadables from './loadables';
 
 // import wikiEntry from '$components/wiki-entry/wikiEntry'
 // const globalServiceContext={
@@ -17,25 +17,30 @@ import Loadables  from './loadables';
 // console.log('wikiEntry1',Loadables.WikiEntry)
 // console.log('wikiEntry1',WikiEntry)
 
-const testCom=()=><div>testCom</div>
+const testCom = () => <div>testCom</div>;
 
-const RouteMain=()=>{
-    const wikiPaths=['/wiki','/mywiki']
-    return(
-        <>
-            {<Router>
-                
-            {/* <LoadingServiceContext.provider value={globalServiceContext}> */}
-                <Switch>
-                    <Route path="/test" component={testCom}/>
+const RouteMain = () => {
+  const wikiPaths = ['/wiki', '/mywiki'];
+  return (
+    <>
+      {
+        <Router>
+          {/* <LoadingServiceContext.provider value={globalServiceContext}> */}
+          <Switch>
+            <Route path="/test" component={testCom} />
 
-                    <Route path="/wiki" exact strict component={Loadables.WikiEntry}/>
-                    <Route path="/redux_analyz" exact component={Loadables.ReduxAnalyz}/>
-                </Switch>
-            {/* </LoadingServiceContext.provider> */}
-            </Router>}
-        </>
-        
-    )
-}
+            <Route path="/wiki" exact strict component={Loadables.WikiEntry} />
+            <Route
+              path="/redux_analyz"
+              exact
+              component={Loadables.ReduxAnalyz}
+            />
+            <Route path="/demos" exact strict component={Loadables.Demos} />
+          </Switch>
+          {/* </LoadingServiceContext.provider> */}
+        </Router>
+      }
+    </>
+  );
+};
 export default RouteMain;

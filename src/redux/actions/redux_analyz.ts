@@ -1,41 +1,40 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 
-export const update_In=payload=>({
-    type:'update_In',
-    payload
-})
+export const updateIn = payload => ({
+  type:'updateIn',
+  payload,
+});
 
-export const update_Out=payload=>({
-    type:'update_Out',
-    payload
-})
+export const updateOut = payload => ({
+  type:'updateOut',
+  payload,
+});
 
-export const update_Title=payload=>({
-    type:'update_title',
-    payload
-})
+export const updateTitle = payload => ({
+  type:'updatetitle',
+  payload,
+});
 
-export const update_Refer=payload=>({
-    type:'update_NodeRefer',
-    payload
-})
+export const updateRefer = payload => ({
+  type:'update_NodeRefer',
+  payload,
+});
 
-export const update_SelectedName=payload=>({
-    type:'update_SelectedName',
-    payload
-})
+export const updateSelectedName = payload => ({
+  type:'updateSelectedName',
+  payload,
+});
 
-export const update_NodeType=payload=>({
-    type:'update_NodeType',
-    payload
-})
+export const updateNodeType = payload => ({
+  type:'updateNodeType',
+  payload,
+});
 
-
-export const init_ModuleList=payload=>({
-    type:'init_ModuleList',
-    payload
-})
-export const update_ModuleKey=payload=>({
-    type:'update_ModuleKey',
-    payload
-})
+export const initModuleList = payload => ({
+  type:'initModuleList',
+  payload,
+});
+export const updateModuleKey = payload => ({
+  type:'updateModuleKey',
+  payload,
+});
